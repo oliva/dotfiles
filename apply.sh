@@ -44,7 +44,11 @@ done
 # iterate over directories
 for cmd in $modules; do
 	# skip if command is not available
-	type -p $cmd > /dev/null || continue
+	type -p $cmd > /dev/null || {
+		[ $log -ge 1 ] &&
+			echo skipping nonexistent cmd $cmd
+		continue
+	}
 
 	# iterate over files
 	for file in $(find "$stowdir/$cmd" -type f -printf '%P\n'); do
@@ -77,10 +81,10 @@ for cmd in $modules; do
 			# don't overwrite if files differ
 			if [ -e "$target/$file" ] && ! diff -q "$target/$file" "$stowdir/$cmd/$file" > /dev/null; then
 				echo target "$target/$file" and source "$stowdir/$cmd/$file" differ, not replacing
-				diff "$target/$file" "$stowdir/$cmd/$file"
+				diff "$target/$file" "$stowdir/$cmd/$file" || true
 				continue
 			fi
-			reallink=$(stat --printf %N "$target/$file" |grep -o " -> '.*'$" |grep -o "'.*'" |grep -o "[^']*" || true)
+			reallink=$(stat --printf %N "$target/$file" 2>/dev/null |grep -o " -> '.*'$" |grep -o "'.*'" |grep -o "[^']*" || true)
 
 			# skip if link already exists
 			if [ "$reallink" = "$relpath" ]; then
