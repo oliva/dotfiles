@@ -1,0 +1,13 @@
+[Unit]
+Description=WayVNC server
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/wayvnc/local
+ExecStart=wayvnc -o $DISPLAY
+TimeoutStopSec=30s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

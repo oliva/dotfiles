@@ -1,0 +1,38 @@
+[ui]
+username = "Temlin, Olivér" <mercurial@teml.in>
+editor = nvim
+merge = nvim
+style = compact
+ignore = ~/.hgignore_global
+
+[auth]
+comnica.schemes = https
+comnica.prefix = hg.comnica.com/
+comnica.username = oliva
+weblate.prefix = https://weblate.uhusystems.com/hg/
+
+[extensions]
+hgext.graphlog =
+color =
+record =
+strip =
+histedit =
+purge =
+rebase =
+shelve =
+
+[alias]
+A = addremove
+blame = annotate --user --number
+co = commit
+log = log --git
+rb = !hg pull --up; hg shelve -n rebase; hg rebase; hg pus; hg unshelve -n rebase
+
+[diff]
+showfunc = 1
+
+[trusted]
+groups=users
+
+[merge-tools]
+nvim.diffargs=-d

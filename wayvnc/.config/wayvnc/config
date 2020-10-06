@@ -1,0 +1,6 @@
+address=0.0.0.0
+#enable_auth=false
+#username=oliva
+#password=hunter2
+#private_key_file=/home/oliva/.config/wayvnc/key.pem
+#certificate_file=/home/oliva/.config/wayvnc/cert.pem

@@ -1,0 +1,30 @@
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+
+[user]
+	name = Temlin Olivér
+	email = git@teml.in
+
+[alias]
+	co = commit
+	com = commit
+	a  = add -Av .
+	d  = diff --stat --base
+	l  = log --oneline --graph
+	st = status --short --column=auto
+	ls = ls-files
+
+[core]
+	excludesfile = /home/oliva/.gitignore_global
+	autocrlf = input
+
+[receive]
+	denyCurrentBranch = updateInstead
+
+[push]
+	default = simple
+
+[pull]
+	rebase = true

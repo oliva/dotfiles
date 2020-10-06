@@ -1,0 +1,600 @@
+# ~/.zshrc.local
+# vim: undofile fdm=syntax fml=3
+
+# If not running interactively, do nothing
+[[ $- != *i* ]] && return
+
+#some safety stuff, also utilizing CoW on btrfs
+alias cp='cp -i'
+alias cowcp='cp -i --reflink=always'
+alias mv='mv -i'
+alias rm='rm -I'
+alias ln='ln -i'
+
+#syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+ZSH_HIGHLIGHT_PATTERNS+=('sudo *' 'fg=blue,bold')
+ZSH_HIGHLIGHT_PATTERNS+=('sudoedit *' 'fg=blue,bold')
+ZSH_HIGHLIGHT_PATTERNS+=('visudo*' 'fg=blue,bold')
+
+ZSH_HIGHLIGHT_STYLES[default]='fg=white'
+
+ZSH_HIGHLIGHT_STYLES[alias]=''
+ZSH_HIGHLIGHT_STYLES[builtin]=''
+ZSH_HIGHLIGHT_STYLES[command]=''
+ZSH_HIGHLIGHT_STYLES[function]=''
+ZSH_HIGHLIGHT_STYLES[hashed-command]=''
+ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=cyan'
+
+ZSH_HIGHLIGHT_STYLES[path]='fg=white'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=white'
+
+ZSH_HIGHLIGHT_STYLES[precommand]=''
+
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=default'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=default'
+
+ZSH_HIGHLIGHT_STYLES[globbing]='bold'
+
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
+
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=green'
+
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=default'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=default'
+
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=default'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=default'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=default'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=cyan'
+
+ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
+
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]=''
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]=''
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]=''
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]=''
+
+
+#perl local::lib hack
+#export PATH="/home/oliva/perl5/bin${PATH:+:${PATH}}"
+#export PERL5LIB="/home/oliva/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+#export PERL_LOCAL_LIB_ROOT="/home/oliva/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+#export PERL_MB_OPT="--install_base \"/home/oliva/perl5\""
+#export PERL_MM_OPT="INSTALL_BASE=/home/oliva/perl5"
+
+export LOCFILE=~/sqlocate.db LOCTOP=/ LOCSKIP=("/snapshot" "$HOME/Private")
+
+#set some aliases
+alias 2core='for core in {2..7}; do sudo su -c "echo 0 > /sys/devices/system/cpu/cpu\"$core\"/online"; done'
+alias 8core='for core in {2..7}; do sudo su -c "echo 1 > /sys/devices/system/cpu/cpu\"$core\"/online"; done'
+alias :w='sync'
+alias :wq='sync; exit'
+alias antiword='antiword -f -s -w $((COLUMNS-1))'
+alias bri='chbacklight'
+alias cal='cal -mw'
+alias calc='noglob calc'
+alias count='sort |uniq -c |sort -g'
+alias df='df -h'
+alias du='du -hd0'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias free='free -m'
+alias grep='grep --color=auto'
+alias in='grep -F' # á la ios
+alias ipmitool='ipmitool -I lanplus'
+alias isok='echo $fg[green]success ||echo $fg[red]fail'
+alias ktk='cd ~/ktk; sudo openvpn vpn.ktk.bme.hu.ovpn; cd -1'
+alias less='less -R -#.25'
+alias letsmb='for port in 137 138 139 445; do sudo iptables -A TCP -p tcp -m tcp --dport $port -s `echo $SSH_CLIENT |cut -d\  -f1` -j ACCEPT; done'
+alias lid='[ "`cat /proc/acpi/button/lid/LID/state |grep open`" ]'
+alias ls='ls --color=auto'
+alias m='mpv'
+alias m_='mpv --sub-color=#7fffffff --sub-border-color=#5f000000'
+alias m__='mpv --video-align-y=-1 --sub-color=#9fffffff --sub-border-color=#7f000000'
+alias mac='/home/oliva/Data/macos-v2/x86_64-softmmu/qemu-system-x86_64 -enable-kvm -m 2048 -cpu core2duo -M q35 -usb -device usb-kbd -device usb-mouse -device isa-applesmc,osk="`cat Private/smc_secret`" -kernel /home/oliva/Downloads/chameleon_svn2360_boot -smbios type=2 -device ide-drive,bus=ide.2,drive=MacHDD -drive id=MacHDD,if=none,file=/home/oliva/Data/libvirt/images/Mac.qcow2 -netdev user,id=hub0port0 -device e1000-82545em,netdev=hub0port0,id=mac_vnet0 -monitor stdio -smp cores=2,threads=2,sockets=1'
+alias mi='primusrun mpv -vf=vapoursynth=file=~~/svp.py:buffered-frames=4:concurrent-frames=15 --video-sync=display-vdrop --hwdec=auto-copy'
+alias mii='mpv -vf=vapoursynth=file=~~/svpi.py:buffered-frames=4:concurrent-frames=15 --video-sync=display-vdrop --hwdec=auto-copy'
+alias minbri='cat /sys/class/backlight/intel_backlight/max_brightness |sudo tee /sys/class/backlight/intel_backlight/brightness; sudo intel_reg write 0xC8254 0x4b000000; echo 0 |sudo tee /sys/class/backlight/intel_backlight/brightness'
+alias mkbtrfs='mkfs.btrfs'
+alias mkbtrfs='mkfs.btrfs'
+alias mkdir='mkdir -pv'
+alias nano='nano -mw'
+alias nload='nload -i 1000000 -o 1000000 -u h'
+alias no='yes n'
+alias nope='[[ -f $HOME/Private/.zshrc.private ]] && source $HOME/Private/.zshrc.private || { unset HISTFILE; PROMPT="${PROMPT/\%\%/%F{gray\}%%}"; }'
+alias o='open'
+alias odt2txt='odt2txt --width=$((COLUMNS-1))'
+alias open='xdg-open' # á la mac os
+alias panic='while true; do sudo setcaps -; sleep .2; sudo setcaps +; sleep .2; done&'
+alias parallel='parallel -I @ '
+alias pcregrep='pcregrep --color=auto'
+alias pu='podman unshare'
+alias rewl='sudo rmmod iwldvm iwlwifi mac80211 cfg80211; sudo modprobe iwldvm'
+alias screen='exec screen'
+alias shu='shutdown now'
+alias spindown='cd /sys/dev/block; for sd in $(for b in `ls`; do [[ -e $b/device && `cat $b/queue/rotational` = 1 ]] && ls $b |grep sd |sed '\''s/\(.*\)[0-9]/\/dev\/\1/g'\'' |uniq; done); do sudo hdparm -y $sd; done; cd -1'
+alias sqlite3='sqlite3 -column -header'
+alias startx='echo nope'
+alias sway='exec dbus-launch --sh-syntax --exit-with-session sway'
+alias sync='time sync'
+alias trafhum-today='curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
+alias v='viewnior'
+alias vim='nvim'
+alias vimdiff='nvim -d'
+alias vnc='set -x; vncserver :1; sudo nft add rule inet filter input ip saddr ${SSH_CLIENT%% *} tcp dport 5901 accept; set +x'
+alias watch='watch -d -p -c -n1'
+alias which='which -a'
+alias white="export PS1='\u:\W $ '; echo -en '$reset_color'"
+alias win='sudo efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager$)") && reboot'
+alias youtube-viewer='noglob youtube-viewer'
+alias youtube-dl='noglob youtube-dl'
+export LESSOPEN="|source-highlight -f esc -i %s"
+
+#handlers for file types
+alias -s exe='wine'
+alias -s jar='java -jar'
+alias -s yml='ansible-playbook-handler'
+
+#for accessing this file, anywhere
+alias -g .zshrc.local='~/.zshrc.local'
+
+#functions
+freemem() {
+#[[ "`whoami`" != "root" ]] && echo 'You got no right' && return
+echo -e '$reset_colorbefore:$fg[green]'
+free #|grep -v 'buffers/cache'
+sync
+sudo su -c 'echo 1 > /proc/sys/vm/drop_caches' &> /dev/null
+echo -e '\n$reset_colorafter:$fg[green]'
+free #|grep -v 'buffers/cache'
+}
+
+progress() { #non-curses alternative to watch
+echo -n "time? "
+read time
+tput sc
+while true; do
+	eval $@
+	sleep $time
+	tput rc
+done
+}
+
+big() { #list files and diectories by size
+	du -chd0 ${@:-*} |sort -h
+}
+
+update() {
+	sudo pacman -Sy
+	yay -Su --noconfirm ||
+		sudo pacman -Su --noconfirm
+	sudo pacman -Fy
+	sudo paccache -rk2
+	sudo paccache -ruk0
+}
+
+snivy() {
+case $1 in
+	'')
+#		 telnet 192.168.1.74 57422 <<<"" >>&/dev/null &&
+#		if [[ -n $(ping -c1 -W1 192.168.1.74 |grep '1 received') ]]; then
+#				 { echo using local addr;		ssh 192.168.1.74 } ||
+#				 { echo using global addr; ssh oliva.noip.me }
+				ssh snivy.ktk.bme.hu
+		;;
+	[Ss][Oo][Cc][Kk][Ss]|proxy)
+		ssh -fTND 41080 snivy.ktk.bme.hu
+		;;
+	*sh*)
+		ssh snivy.ktk.bme.hu
+		;;
+	tun)
+		ssh -f -w 0:1 snivy.ktk.bme.hu true
+		;;
+	x*|X*)
+		ssh -X -C snivy.ktk.bme.hu
+		;;
+	ping)
+		ping snivy.ktk.bme.hu
+		;;
+	m|mount)
+		sshfs snivy.ktk.bme.hu:/ /media/snivy
+		;;
+	u|um|umount|unmount)
+		[ "`mount | grep -i /media/snivy/boot`" ] && umount /media/snivy/boot
+		fusermount -u /media/snivy || umount /media/snivy
+		;;
+	sd)
+		sudo mount /media/snivy
+		sudo mount /media/snivy/boot
+		;;
+	*)
+		echo 'do what?'
+		;;
+esac
+}
+
+4download() { #imageboard archiver
+	[ "$1" ] || {echo no input; break}
+	#universalizing
+	site=${1#*://}
+	site=${site%%/*}
+	case $site in
+		"4ch"|"4chan.org"|"boards.4chan.org")
+			board=${1#*org/}
+			board=${board%%/*}
+			thread=${1##*/}
+			file="${board}-${thread}"
+			filelist='curl -sf "$1" |tee "$file.html" |sed "s/\ /\n/g" |grep href |grep 4cdn |sed "s/.*href=\"\/\///g" |sed "s/\".*//g" |sort -u'
+		;;
+		"desustorage.org"|"desuarchive.org") #same as foolz and moe
+			board=${1#*://*/}
+			board=${board%%/*}
+			thread=${1%/}
+			thread=${thread##*/}
+			file="${board}-${thread}_desu"
+			filelist='curl -sf "$1" |tee "$file.html"|sed "s/\ /\n/g" |grep href |egrep "data\.desustorage\.org|desu-usergeneratedcontent\.xyz" |sed "s/.*href=\"//g" |sed "s/\".*//g" |grep -v "?\|=" |sort -u'
+		;;
+		"plus4chan.org")
+			board=${1#*org/b/}
+			board=${board%%/*}
+			thread=${1##*/}
+			thread=${thread%.html}
+			file="+${board}-${thread}"
+			filelist='curl -sf "$1" |tee "$file.html" |sed "s/\ /\n/g" |grep href |grep src |sed "s/.*href=\"//g" |sed "s/\".*//g" |sort -u'
+		;;
+		*)
+			echo site not supported
+			return
+		;;
+	esac
+	#filelist='curl -f "$1" |tee "$file.html" |sed "s/\ /\n/g" |grep href |grep src |sed "s/.*href=\"//g" |sed "s/\".*//g" |sort -u'
+	#getting to the directory
+	[ -e ../"$file.html" ] && cd ..
+	[ -e "$file"/"$file.html" ] &&	cd "$file"
+	if [ ! -e "$file.html" ]; then
+		mkdir -p "$file"
+		cd "$file"
+		eval $filelist > list
+		cat list > dl
+	else
+		mv list list1
+		eval $filelist > list2
+		comm -13 list1 list2 > dl
+		cat list1 list2 |sort -u > list
+		rm list1 list2
+	fi
+	mkdir -p i
+	#main loop
+	while true; do
+		cd i
+		new="`cat ../dl |wc -l`"
+		if [ $new -gt 0 ]; then echo -e '\a'; fi
+		echo -n "Downloading $new additional files, sum is: `cat ../list |wc -l`\r"
+		[[ -z $2 ]] && echo
+		for i in `cat ../dl`; do
+			curl -fO ${i} |grep -v "Spe" #remove clutter
+		done
+		rm ../dl
+		#echo "Number of files downloaded from this thread is `ls -1|wc -l`"
+		[ "$2" ] && sleep $2 && cd .. || break
+		mv list list1
+		eval $filelist > list2
+		comm -13 list1 list2 > dl
+		cat list1 list2 |sort -u > list
+		rm list1 list2
+	done
+}
+
+#needs to be defined like so, otherwise overdefines noglob as well
+function calc() { echo 25k $@ 4k1/p |dc }
+
+clock() {
+	tput sc
+	while true; do
+		tput rc
+		date +%a,\ %d\ %b\ %0H:%0M:%0S.%0N|awk '{print substr($0, 1, length($0)-7)}'
+		sleep .01
+	done
+}
+
+android-build() {
+	export PATH=~/Data/android/bin:$PATH
+	cd ~/Data/android/system
+}
+
+#look ma', no letters!
+fork() { $@& }
+#TODO completion, alias expansion
+#zstyle :completion:*:fork:*
+
+umount() {
+	for mp in $@; do
+		mountpoint -q $mp || {echo $mp is not mounted; return}
+		[[ -n `mount |grep -F "$(dirname $mp/.)" |grep -F 'type fuse'` ]] &&
+			fusermount -u $mp ||
+			/usr/bin/umount $mp 2>&0 ||
+			sudo /usr/bin/umount $mp
+	done
+}
+
+mount() {
+	/usr/bin/mount $@ ||
+	sudo /usr/bin/mount $@
+}
+
+extractsrt() {
+	_IFSSAVE=$IFS
+	export IFS='
+'
+	[[ $1 == -map ]] &&
+		{ map=(-map $2); list=${@[2,-1]} } ||
+		{ map='';				list=${@} }
+
+	echo ${(j:\n:)list} |parallel \
+	                     	ffmpeg -loglevel warning -i @ $map {.}.tmp.srt \&\& \
+	                     	sed $'\'s/<[^>]*>//g\'' {.}.tmp.srt \> {.}.srt \&\& \
+	                     	rm {.}.tmp.srt
+	export IFS=$_IFSSAVE
+}
+
+locate-dbcreate() {
+	cd /tmp
+#	echo 'CREATE VIRTUAL TABLE locate USING FTS5 (path, name);
+	echo 'CREATE TABLE locate (path TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL);
+	      INSERT OR REPLACE INTO locate VALUES' >! sqlocate.include
+	typeset -a prune
+	for skip in /dev /proc /run /snapshot /sys /tmp $LOCSKIP; do
+		prune+=(-path $skip -prune -o)
+	done
+	find / \
+		$prune \
+		-printf '(\0%p\0, \0%f\0),\n' 2>&-  \
+		|sed $'s/\'/\'\'/g' \
+		|tr '\0' \' \
+		>> sqlocate.include
+	echo $'(\'\', \'\');' >> sqlocate.include
+	sqlite3 sqlocate.db '.read sqlocate.include'
+	sqlite3 sqlocate.db 'VACUUM;'
+	rm sqlocate.include
+	mv -f sqlocate.db ${LOCFILE}
+	cd -1
+}
+
+locate() { #replacing utterly slow gnu alternative
+	if [[ $? -eq 1 ]]; then
+#		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE name MATCH '$1'"
+		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE name LIKE '%$1%'"
+	else
+#		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE path MATCH '${(j:+:)@}'"
+		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE path LIKE '%${(j:%:)@}%'"
+	fi
+}
+
+snd() {
+	case $1 in
+		default|def|d)
+			systemctl --user stop pulseaudio.service pulseaudio.socket
+			systemctl --user mask pulseaudio.socket
+			_asoundrc="default";;
+		builtin|intel|in|i)
+			systemctl --user stop pulseaudio.service pulseaudio.socket
+			systemctl --user mask pulseaudio.socket
+			_asoundrc="intel";;
+		HDMI|H|hdmi|h)
+			systemctl --user stop pulseaudio.service pulseaudio.socket
+			systemctl --user mask pulseaudio.socket
+			_asoundrc="HDMI";;
+		Q1|Q|q1|q|FiiO|Fiio|F|fiio|f)
+			systemctl --user stop pulseaudio.service pulseaudio.socket
+			systemctl --user mask pulseaudio.socket
+			_asoundrc="Q1";;
+		SDAC|SDA|SD|S|sdac|sda|sd|s)
+			systemctl --user stop pulseaudio.service pulseaudio.socket
+			systemctl --user mask pulseaudio.socket
+			_asoundrc="SDAC";;
+		pulseaudio|pa|pulse|p)
+			_asoundrc="null"
+			systemctl --user unmask pulseaudio.socket
+			systemctl --user start pulseaudio;;
+		''|\?)
+			stat $HOME/.asoundrc -c %N; return 0;;
+		*)
+			echo "No such driver"; return 1;;
+	esac
+	case $2 in
+		dmix|dmi|dm|d)
+			_asoundrc+=".dmix";;
+	esac
+	ln -sf $HOME/.asoundrc.${_asoundrc} $HOME/.asoundrc
+	unset _asoundrc
+}
+
+mklxc() {
+	[[ $# -ne 0 && $# -ne 1 && $# -ne 3 && $# -ne 6 && $1 != -* ]] &&
+		echo Usage: 'mklxc ([name]) ([cpus] [memsize]) ([distro] [release] [arch])\neg.: mklxc testcentos 2 256M centos 7 amd64'
+
+	[[ -z $1 ]] &&
+		{ echo -n 'Name: '; read name } ||
+		{ name=$1 }
+
+	[[ -z $2 ]] &&
+		{ echo -n 'CPUs: '; read cpus } ||
+		{ cpus=$2 }
+	noglob let cpu=${cpus}
+	[[ $cpu -eq 0 ]] && {
+		echo 'Could not parse number of cpus'
+		return 1
+	}
+
+	[[ -z $2 ]] &&
+		{ echo -n 'Memory size: '; read memsize } ||
+		{ memsize=$3 }
+	if   [[ $memsize == *[0-9][Kk] ]]; then
+		noglob let mem=${memsize%[Kk]}/1024
+	elif [[ $memsize == *[0-9][Mm] ]]; then
+		noglob let mem=${memsize%[Mm]}
+	elif [[ $memsize == *[0-9][Gg] ]]; then
+		noglob let mem=${memsize%[Gg]}*1024
+	else
+		noglob let mem=${memsize}
+	fi
+	[[ $mem -eq 0 ]] && {
+		echo 'Incorrect amount of memory'
+		return 1
+	}
+
+	echo "Using name '${name}', ${cpu} cpus and ${mem}M of memory"
+
+	[[ -z $4 ]] &&
+		sudo lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs ||
+		sudo lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs -- -d $4 -r $5 -a $6
+	sudo chroot /var/lib/lxc/${name}/rootfs /bin/passwd root || {
+		echo 'Deleting root password'
+		sudo chroot /var/lib/lxc/${name}/rootfs /bin/passwd -d root
+	}
+	virsh -c lxc:/// define <(cat <<- END
+		<domain type='lxc'>
+			<name>${name}</name>
+			<memory unit='MiB'>${mem}</memory>
+			<currentMemory unit='MiB'>${mem}</currentMemory>
+			<vcpu placement='static'>${cpu}</vcpu>
+			<resource>
+				<partition>/machine</partition>
+			</resource>
+			<os>
+				<type arch='x86_64'>exe</type>
+				<init>/sbin/init</init>
+			</os>
+			<features>
+				<privnet/>
+			</features>
+			<clock offset='utc'/>
+			<on_poweroff>destroy</on_poweroff>
+			<on_reboot>restart</on_reboot>
+			<on_crash>restart</on_crash>
+			<devices>
+				<emulator>/usr/lib/libvirt/libvirt_lxc</emulator>
+				<filesystem type='mount' accessmode='passthrough'>
+					<source dir='/var/lib/lxc/${name}/rootfs'/>
+					<target dir='/'/>
+				</filesystem>
+				<interface type='network'>
+					<source network='lxc-nat'/>
+				</interface>
+				<console type='pty'>
+					<target type='lxc' port='0'/>
+				</console>
+				<hostdev mode='capabilities' type='misc'>
+					<source>
+						<char>/dev/net/tun</char>
+					</source>
+				</hostdev>
+			</devices>
+			<seclabel type='none' model='none'/>
+		</domain>
+		END
+	)
+	virsh -c lxc:/// start ${name}
+	virsh -c lxc:/// console ${name}
+}
+
+rmlxc() {
+	[[ $# -ne 0 && $# -ne 1 && $1 != -* ]] &&
+		echo Usage: 'rmlxc ([name])\neg.: rmlxc testcentos'
+
+	[[ -z $1 ]] &&
+		{ echo -n 'Name: '; read name } ||
+		{ name=$1 }
+
+	virsh -c lxc:/// destroy ${name}
+	virsh -c lxc:/// undefine ${name}
+	sudo btrfs subvol del /var/lib/lxc/${name}/rootfs
+	sudo rm -rf /var/lib/lxc/${name}
+}
+
+de() {
+	local id tty user run
+	id=$1
+	shift
+
+	tty=()
+	test -t 0 && tty+='-i'
+	test -t 1 && tty+='-t'
+
+	if [[ -n $@ ]]; then
+		run=($@)
+	else
+		#user=$(docker inspect $id |grep -Po '(?<="User": ").*(?=",)')
+		#run=($(docker exec $id getent passwd ${user:-root} |cut -d: -f7) "-")
+		run=($(docker exec $id getent passwd root |cut -d: -f7) "-")
+	fi
+
+	#docker exec $tty -- $id $run
+	docker exec -u 0 $tty -- $id $run
+}
+
+px() {
+	local id tty user run
+	id=$1
+	shift
+
+	tty=()
+	test -t 0 && tty+=('-i')
+	test -t 1 && tty+=('-t')
+
+	if [[ -n $@ ]]; then
+		run=($@)
+	else
+		#user=$(podman inspect $id |grep -Po '(?<="User": ").*(?=",)')
+		#run=($(podman exec $id getent passwd ${user:-root} |cut -d: -f7) "-")
+		run=($(podman exec $id getent passwd root |cut -d: -f7) "-")
+	fi
+
+	#podman exec $tty -- $id $run
+	podman exec -u 0 $tty -- $id $run
+}
+
+histsearch() { noglob fc -ilm "$@" 0 }
+
+conman() {
+	proto=https
+	target=$1
+	port=5002
+
+	case $target in
+		pci-??[0-9])
+			port=$((port+10*${target#pci-??}))
+			target=${target%[0-9]}
+			;;
+	esac
+
+	host=$target.comnica.com
+	shift
+	ssh -t root@192.168.100.246 /usr/bin/uhu-conman -u oliva ${proto}://${host}:${port} $@
+}
+
+til() {
+	sleep $(($(date -d "$@" +%s.%N) - $(date -d 'now' +%s.%N)))
+}
+
+function ansible-playbook-handler() {
+	file=${@[0]}
+	shift
+	typeset -a args vars hosts
+	for arg in $@; do
+		case $@ in
+			-*)
+				args+=$arg ;;
+			*=*)
+				vars+=$arg ;;
+			*)
+				hosts+=$arg ;;
+		esac
+	done
+	ansible-playbook $args --extra-vars="{\"host\": [\"${(j:",":)hosts}\"]}" --extra-vars="${(j: :)vars}" $file
+}

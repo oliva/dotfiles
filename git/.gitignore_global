@@ -1,0 +1,9 @@
+# Vim undo and swap files
+*.un~
+*.swp
+
+#other version trackers
+.git/
+.hg/
+.svn/
+.bzr/
