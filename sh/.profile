@@ -5,9 +5,7 @@
 #umask 022
 
 #SSH agents
-export SSH_ASKPASS=ssh-askpass
-[[ ! -S /run/user/${UID}/ssh-agent ]] && ssh-agent -a /run/user/${UID}/ssh-agent >&-
-export SSH_AUTH_SOCK=/run/user/${UID}/ssh-agent
+[[ -z "${SSH_AUTH_SOCK}" ]] && export SSH_AUTH_SOCK=/run/user/${UID}/ssh-agent
 
 #Editors
 export VISUAL=nvim
