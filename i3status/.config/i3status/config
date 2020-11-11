@@ -16,7 +16,7 @@ order += "disk /"
 order += "disk /home/oliva/Data"
 #order += "wireless wlp1s0"
 order += "ethernet br0"
-order += "ethernet tun-comnica"
+order += "ethernet tun-vcc-preprod"
 #order += "cpu_usage"
 #order += "memory"
 #order += "load"
@@ -56,9 +56,9 @@ ethernet br0 {
 	separator_block_width = 16
 }
 
-ethernet tun-comnica {
-	format_up = "C: %ip"
-	format_down = "C"
+ethernet tun-vcc-preprod {
+	format_up = "P: %ip"
+	format_down = "P"
 	separator = false
 	separator_block_width = 16
 }

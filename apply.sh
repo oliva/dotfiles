@@ -55,7 +55,7 @@ for cmd in $modules; do
 
 		# get relative symlink path
 		destdir="$(dirname "$target/$file")"
-		relpath="$(realpath --relative-to="$destdir" "$stowdir/$cmd/$file")"
+		relpath="$(realpath --relative-to="$destdir" "$stowdir/$cmd/$file")" 2>&- || true
 		[ $log -ge 2 ] && {
 			echo src "$stowdir/$cmd/$file"
 			echo dst "$target/$file"

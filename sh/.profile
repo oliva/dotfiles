@@ -47,3 +47,9 @@ export OCIO=$HOME/Data/filmic-blender/config.ocio
 
 #Support for tray icons on shit applications
 export XDG_CURRENT_DESKTOP=Unity
+
+#sqlocate configuration
+LOCFILE=~/sqlocate.db
+LOCTOP=/
+LOCSKIP="/snapshot ~/Private"
+export LOCFILE LOCTOP LOCSKIP
