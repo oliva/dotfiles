@@ -53,16 +53,8 @@ for cmd in $modules; do
 	# iterate over files
 	for file in $(find "$stowdir/$cmd" -type f -printf '%P\n'); do
 
-		# get relative symlink path
-		destdir="$(dirname "$target/$file")"
-		relpath="$(realpath --relative-to="$destdir" "$stowdir/$cmd/$file")" 2>&- || true
-		[ $log -ge 2 ] && {
-			echo src "$stowdir/$cmd/$file"
-			echo dst "$target/$file"
-			echo lnk "$relpath"
-		}
-
 		# ensure parent dir
+		destdir="$(dirname "$target/$file")"
 		if [ ! -d "$destdir" ]; then
 			[ $log -ge 1 ] && echo mkdir -pv "$destdir"
 			[ $log -eq 0 ] &&      mkdir -pv "$destdir"
@@ -70,6 +62,14 @@ for cmd in $modules; do
 		else
 			[ $log -ge 2 ] && echo dir "$destdir" already exists
 		fi
+
+		# get relative symlink path
+		relpath="$(realpath --relative-to="$destdir" "$stowdir/$cmd/$file")"
+		[ $log -ge 2 ] && {
+			echo src "$stowdir/$cmd/$file"
+			echo dst "$target/$file"
+			echo lnk "$relpath"
+		}
 
 		# add link
 		destbase="$(basename "$target/$file")"

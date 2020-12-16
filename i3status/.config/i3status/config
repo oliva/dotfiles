@@ -16,7 +16,8 @@ order += "disk /"
 order += "disk /home/oliva/Data"
 #order += "wireless wlp1s0"
 order += "ethernet br0"
-order += "ethernet tun-vcc-preprod"
+order += "ethernet tun-ktk"
+order += "ethernet wg"
 #order += "cpu_usage"
 #order += "memory"
 #order += "load"
@@ -56,9 +57,16 @@ ethernet br0 {
 	separator_block_width = 16
 }
 
-ethernet tun-vcc-preprod {
-	format_up = "P: %ip"
-	format_down = "P"
+ethernet tun-ktk {
+	format_up = "KTK"
+	format_down = "KTK"
+	separator = false
+	separator_block_width = 16
+}
+
+ethernet wg {
+	format_up = "WG"
+	format_down = "WG"
 	separator = false
 	separator_block_width = 16
 }

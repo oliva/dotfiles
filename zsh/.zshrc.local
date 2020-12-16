@@ -89,6 +89,7 @@ alias ktk='cd ~/ktk; sudo openvpn vpn.ktk.bme.hu.ovpn; cd -1'
 alias less='less -R -#.25'
 alias letsmb='for port in 137 138 139 445; do sudo iptables -A TCP -p tcp -m tcp --dport $port -s `echo $SSH_CLIENT |cut -d\  -f1` -j ACCEPT; done'
 alias lid='[ "`cat /proc/acpi/button/lid/LID/state |grep open`" ]'
+alias locate='sqlocate'
 alias ls='ls --color=auto'
 alias m='mpv'
 alias m_='mpv --sub-color=#7fffffff --sub-border-color=#5f000000'
@@ -152,11 +153,12 @@ free #|grep -v 'buffers/cache'
 }
 
 progress() { #non-curses alternative to watch
-echo -n "time? "
-read time
+#echo -n "time? "
+#read time
+time=1
 tput sc
 while true; do
-	eval $@
+	$@
 	sleep $time
 	tput rc
 done
@@ -338,39 +340,6 @@ extractsrt() {
 	                     	sed $'\'s/<[^>]*>//g\'' {.}.tmp.srt \> {.}.srt \&\& \
 	                     	rm {.}.tmp.srt
 	export IFS=$_IFSSAVE
-}
-
-locate-dbcreate() {
-	cd /tmp
-#	echo 'CREATE VIRTUAL TABLE locate USING FTS5 (path, name);
-	echo 'CREATE TABLE locate (path TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL);
-	      INSERT OR REPLACE INTO locate VALUES' >! sqlocate.include
-	typeset -a prune
-	for skip in /dev /proc /run /snapshot /sys /tmp $LOCSKIP; do
-		prune+=(-path $skip -prune -o)
-	done
-	find / \
-		$prune \
-		-printf '(\0%p\0, \0%f\0),\n' 2>&-  \
-		|sed $'s/\'/\'\'/g' \
-		|tr '\0' \' \
-		>> sqlocate.include
-	echo $'(\'\', \'\');' >> sqlocate.include
-	sqlite3 sqlocate.db '.read sqlocate.include'
-	sqlite3 sqlocate.db 'VACUUM;'
-	rm sqlocate.include
-	mv -f sqlocate.db ${LOCFILE}
-	cd -1
-}
-
-locate() { #replacing utterly slow gnu alternative
-	if [[ $? -eq 1 ]]; then
-#		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE name MATCH '$1'"
-		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE name LIKE '%$1%'"
-	else
-#		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE path MATCH '${(j:+:)@}'"
-		sqlite3 -list -noheader ${LOCFILE} "SELECT path FROM locate WHERE path LIKE '%${(j:%:)@}%'"
-	fi
 }
 
 snd() {
