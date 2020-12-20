@@ -81,7 +81,7 @@ for cmd in $modules; do
 			# don't overwrite if files differ
 			if [ -e "$target/$file" ] && ! diff -q "$target/$file" "$stowdir/$cmd/$file" > /dev/null; then
 				echo target "$target/$file" and source "$stowdir/$cmd/$file" differ, not replacing
-				diff "$target/$file" "$stowdir/$cmd/$file" || true
+				[ $log -ge 2 ] && diff "$target/$file" "$stowdir/$cmd/$file" || true
 				continue
 			fi
 			reallink=$(stat --printf %N "$target/$file" 2>/dev/null |grep -o " -> '.*'$" |grep -o "'.*'" |grep -o "[^']*" || true)
