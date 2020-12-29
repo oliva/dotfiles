@@ -6,4 +6,5 @@ indicator-radius=80
 indicator-thickness=8
 line-uses-inside
 separator-color=00000000
+color=000000
 scaling=fill

@@ -1,0 +1,13 @@
+#~/.screenrc
+altscreen on
+term screen-256color
+shelltitle "$ |oliva: "
+startup_message off
+multiuser on
+defscrollback 65536
+termcapinfo xterm* ti@:te@
+#set term title
+termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+defhstatus "^E : ^Et"
+hardstatus off
+startup_message off
