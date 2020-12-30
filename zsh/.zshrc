@@ -42,7 +42,7 @@ unsetopt menucomplete
 
 unset HOSTID
 [[ -n $SSH_TTY ]] && #if not a local session, show host on prompt
-	HOSTID="@$(hostname -s)"
+	HOSTID="@${HOST%%.*}"
 
 
 PROMPT="%(!.%F{blue}.%F{green})%n$HOSTID:%1~ %%%f "
