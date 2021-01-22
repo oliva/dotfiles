@@ -284,7 +284,7 @@ bar {
 #
 
 exec xrdb -merge .Xresources
-exec swaylock
+#exec swaylock
 exec bt_presence
 exec psi_mon -w -o /run/user/5471/psi_mon
 
