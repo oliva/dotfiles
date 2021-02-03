@@ -18,9 +18,9 @@ alias ln='ln -i'
 	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+ZSH_HIGHLIGHT_PATTERNS+=('doas *' 'fg=blue,bold')
 ZSH_HIGHLIGHT_PATTERNS+=('sudo *' 'fg=blue,bold')
 ZSH_HIGHLIGHT_PATTERNS+=('sudoedit *' 'fg=blue,bold')
-ZSH_HIGHLIGHT_PATTERNS+=('visudo*' 'fg=blue,bold')
 
 ZSH_HIGHLIGHT_STYLES[default]='fg=white'
 
@@ -70,12 +70,9 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]=''
 #export PERL_MM_OPT="INSTALL_BASE=/home/oliva/perl5"
 
 #set some aliases
-alias 2core='for core in {2..7}; do sudo su -c "echo 0 > /sys/devices/system/cpu/cpu\"$core\"/online"; done'
-alias 8core='for core in {2..7}; do sudo su -c "echo 1 > /sys/devices/system/cpu/cpu\"$core\"/online"; done'
 alias :w='sync'
 alias :wq='sync; exit'
 alias antiword='antiword -f -s -w $((COLUMNS-1))'
-alias bri='chbacklight'
 alias cal='cal -mw'
 alias calc='noglob calc'
 alias count='sort |uniq -c |sort -g'
@@ -87,10 +84,7 @@ alias free='free -m'
 alias grep='grep --color=auto'
 alias in='grep -F' # á la ios
 alias ipmitool='ipmitool -I lanplus'
-alias isok='echo $fg[green]success ||echo $fg[red]fail'
-alias ktk='cd ~/ktk; sudo openvpn vpn.ktk.bme.hu.ovpn; cd -1'
 alias less='less -R -#.25'
-alias letsmb='for port in 137 138 139 445; do sudo iptables -A TCP -p tcp -m tcp --dport $port -s `echo $SSH_CLIENT |cut -d\  -f1` -j ACCEPT; done'
 alias lid='[ "`cat /proc/acpi/button/lid/LID/state |grep open`" ]'
 alias locate='sqlocate'
 alias ls='ls --color=auto'
@@ -98,40 +92,32 @@ alias m='mpv'
 alias m_='mpv --sub-color=#7fffffff --sub-border-color=#5f000000'
 alias m__='mpv --video-align-y=-1 --sub-color=#9fffffff --sub-border-color=#7f000000'
 alias mac='/home/oliva/Data/macos-v2/x86_64-softmmu/qemu-system-x86_64 -enable-kvm -m 2048 -cpu core2duo -M q35 -usb -device usb-kbd -device usb-mouse -device isa-applesmc,osk="`cat Private/smc_secret`" -kernel /home/oliva/Downloads/chameleon_svn2360_boot -smbios type=2 -device ide-drive,bus=ide.2,drive=MacHDD -drive id=MacHDD,if=none,file=/home/oliva/Data/libvirt/images/Mac.qcow2 -netdev user,id=hub0port0 -device e1000-82545em,netdev=hub0port0,id=mac_vnet0 -monitor stdio -smp cores=2,threads=2,sockets=1'
-alias mi='primusrun mpv -vf=vapoursynth=file=~~/svp.py:buffered-frames=4:concurrent-frames=15 --video-sync=display-vdrop --hwdec=auto-copy'
-alias mii='mpv -vf=vapoursynth=file=~~/svpi.py:buffered-frames=4:concurrent-frames=15 --video-sync=display-vdrop --hwdec=auto-copy'
-alias minbri='cat /sys/class/backlight/intel_backlight/max_brightness |sudo tee /sys/class/backlight/intel_backlight/brightness; sudo intel_reg write 0xC8254 0x4b000000; echo 0 |sudo tee /sys/class/backlight/intel_backlight/brightness'
-alias mkbtrfs='mkfs.btrfs'
 alias mkbtrfs='mkfs.btrfs'
 alias mkdir='mkdir -pv'
 alias nano='nano -mw'
 alias nload='nload -i 1000000 -o 1000000 -u h'
 alias no='yes n'
 alias nope='[[ -f $HOME/Private/.zshrc.private ]] && source $HOME/Private/.zshrc.private || { unset HISTFILE; PROMPT="${PROMPT/\%\%/%F{gray\}%%}"; }'
-alias o='open'
 alias odt2txt='odt2txt --width=$((COLUMNS-1))'
 alias open='xdg-open' # á la mac os
-alias panic='while true; do sudo setcaps -; sleep .2; sudo setcaps +; sleep .2; done&'
 alias parallel='parallel -I @ '
 alias pcregrep='pcregrep --color=auto'
-alias pu='podman unshare'
-alias rewl='sudo rmmod iwldvm iwlwifi mac80211 cfg80211; sudo modprobe iwldvm'
 alias screen='exec screen'
 alias shu='shutdown now'
-alias spindown='cd /sys/dev/block; for sd in $(for b in `ls`; do [[ -e $b/device && `cat $b/queue/rotational` = 1 ]] && ls $b |grep sd |sed '\''s/\(.*\)[0-9]/\/dev\/\1/g'\'' |uniq; done); do sudo hdparm -y $sd; done; cd -1'
+alias spindown='cd /sys/dev/block; for sd in $(for b in `ls`; do [[ -e $b/device && `cat $b/queue/rotational` = 1 ]] && ls $b |grep sd |sed '\''s/\(.*\)[0-9]/\/dev\/\1/g'\'' |uniq; done); do doas hdparm -y $sd; done; cd -1'
 alias sqlite3='sqlite3 -column -header'
 alias startx='echo nope'
+alias sudo='doas'
 alias sway='exec dbus-launch --sh-syntax --exit-with-session sway'
 alias sync='time sync'
-alias trafhum-today='curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
+alias trafhum-today='ssh serperior curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
 alias v='viewnior'
 alias vim='nvim'
 alias vimdiff='nvim -d'
-alias vnc='set -x; vncserver :1; sudo nft add rule inet filter input ip saddr ${SSH_CLIENT%% *} tcp dport 5901 accept; set +x'
+alias vnc='set -x; vncserver :1; doas nft add rule inet filter input ip saddr ${SSH_CLIENT%% *} tcp dport 5901 accept; set +x'
 alias watch='watch -d -p -c -n1'
 alias which='which -a'
-alias white="export PS1='\u:\W $ '; echo -en '$reset_color'"
-alias win='sudo efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager$)") && reboot'
+alias win='doas efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager$)") && reboot'
 alias youtube-viewer='noglob youtube-viewer'
 alias youtube-dl='noglob youtube-dl'
 export LESSOPEN="|source-highlight -f esc -i %s"
@@ -150,7 +136,7 @@ freemem() {
 echo -e '$reset_colorbefore:$fg[green]'
 free #|grep -v 'buffers/cache'
 sync
-sudo su -c 'echo 1 > /proc/sys/vm/drop_caches' &> /dev/null
+doas su -c 'echo 1 > /proc/sys/vm/drop_caches' &> /dev/null
 echo -e '\n$reset_colorafter:$fg[green]'
 free #|grep -v 'buffers/cache'
 }
@@ -172,12 +158,12 @@ big() { #list files and diectories by size
 }
 
 update() {
-	sudo pacman -Sy
+	doas pacman -Sy
 	yay -Su --noconfirm ||
-		sudo pacman -Su --noconfirm
-	sudo pacman -Fy
-	sudo paccache -rk2
-	sudo paccache -ruk0
+		doas pacman -Su --noconfirm
+	doas pacman -Fy
+	doas paccache -rk2
+	doas paccache -ruk0
 }
 
 snivy() {
@@ -212,8 +198,8 @@ case $1 in
 		fusermount -u /media/snivy || umount /media/snivy
 		;;
 	sd)
-		sudo mount /media/snivy
-		sudo mount /media/snivy/boot
+		doas mount /media/snivy
+		doas mount /media/snivy/boot
 		;;
 	*)
 		echo 'do what?'
@@ -321,13 +307,13 @@ umount() {
 		[[ -n `mount |grep -F "$(dirname $mp/.)" |grep -F 'type fuse'` ]] &&
 			fusermount -u $mp ||
 			/usr/bin/umount $mp 2>&0 ||
-			sudo /usr/bin/umount $mp
+			doas /usr/bin/umount $mp
 	done
 }
 
 mount() {
 	/usr/bin/mount $@ ||
-	sudo /usr/bin/mount $@
+		doas /usr/bin/mount $@
 }
 
 extractsrt() {
@@ -421,11 +407,11 @@ mklxc() {
 	echo "Using name '${name}', ${cpu} cpus and ${mem}M of memory"
 
 	[[ -z $4 ]] &&
-		sudo lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs ||
-		sudo lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs -- -d $4 -r $5 -a $6
-	sudo chroot /var/lib/lxc/${name}/rootfs /bin/passwd root || {
+		doas lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs ||
+		doas lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs -- -d $4 -r $5 -a $6
+	doas chroot /var/lib/lxc/${name}/rootfs /bin/passwd root || {
 		echo 'Deleting root password'
-		sudo chroot /var/lib/lxc/${name}/rootfs /bin/passwd -d root
+		doas chroot /var/lib/lxc/${name}/rootfs /bin/passwd -d root
 	}
 	virsh -c lxc:/// define <(cat <<- END
 		<domain type='lxc'>
@@ -483,8 +469,8 @@ rmlxc() {
 
 	virsh -c lxc:/// destroy ${name}
 	virsh -c lxc:/// undefine ${name}
-	sudo btrfs subvol del /var/lib/lxc/${name}/rootfs
-	sudo rm -rf /var/lib/lxc/${name}
+	doas btrfs subvol del /var/lib/lxc/${name}/rootfs
+	doas rm -rf /var/lib/lxc/${name}
 }
 
 de() {
