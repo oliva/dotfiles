@@ -117,7 +117,7 @@ input "1386:770:Wacom_Intuos_PT_S_(WL)_Pen" map_to_output DP-1
 	floating_modifier $mod normal
 
 	# reload the configuration file
-	bindsym $mod+$alt+backspace reload
+	#bindsym $mod+$alt+backspace reload
 
 	# exit sway (logs you out of your wayland session)
 	bindsym $mod+$alt+$sft+delete exit

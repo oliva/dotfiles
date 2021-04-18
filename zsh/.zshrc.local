@@ -108,7 +108,7 @@ alias spindown='cd /sys/dev/block; for sd in $(for b in `ls`; do [[ -e $b/device
 alias sqlite3='sqlite3 -column -header'
 alias startx='echo nope'
 alias sudo='doas'
-alias sway='exec dbus-launch --sh-syntax --exit-with-session sway'
+alias sway='exec sway'
 alias sync='time sync'
 alias trafhum-today='ssh serperior curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
 alias v='viewnior'
@@ -164,47 +164,6 @@ update() {
 	doas pacman -Fy
 	doas paccache -rk2
 	doas paccache -ruk0
-}
-
-snivy() {
-case $1 in
-	'')
-#		 telnet 192.168.1.74 57422 <<<"" >>&/dev/null &&
-#		if [[ -n $(ping -c1 -W1 192.168.1.74 |grep '1 received') ]]; then
-#				 { echo using local addr;		ssh 192.168.1.74 } ||
-#				 { echo using global addr; ssh oliva.noip.me }
-				ssh snivy.ktk.bme.hu
-		;;
-	[Ss][Oo][Cc][Kk][Ss]|proxy)
-		ssh -fTND 41080 snivy.ktk.bme.hu
-		;;
-	*sh*)
-		ssh snivy.ktk.bme.hu
-		;;
-	tun)
-		ssh -f -w 0:1 snivy.ktk.bme.hu true
-		;;
-	x*|X*)
-		ssh -X -C snivy.ktk.bme.hu
-		;;
-	ping)
-		ping snivy.ktk.bme.hu
-		;;
-	m|mount)
-		sshfs snivy.ktk.bme.hu:/ /media/snivy
-		;;
-	u|um|umount|unmount)
-		[ "`mount | grep -i /media/snivy/boot`" ] && umount /media/snivy/boot
-		fusermount -u /media/snivy || umount /media/snivy
-		;;
-	sd)
-		doas mount /media/snivy
-		doas mount /media/snivy/boot
-		;;
-	*)
-		echo 'do what?'
-		;;
-esac
 }
 
 4download() { #imageboard archiver
@@ -516,23 +475,6 @@ px() {
 }
 
 histsearch() { noglob fc -ilm "$@" 0 }
-
-conman() {
-	proto=https
-	target=$1
-	port=5002
-
-	case $target in
-		pci-??[0-9])
-			port=$((port+10*${target#pci-??}))
-			target=${target%[0-9]}
-			;;
-	esac
-
-	host=$target.comnica.com
-	shift
-	ssh -t root@192.168.100.246 /usr/bin/uhu-conman -u oliva ${proto}://${host}:${port} $@
-}
 
 til() {
 	sleep $(($(date -d "$@" +%s.%N) - $(date -d 'now' +%s.%N)))

@@ -5,12 +5,6 @@ merge = nvim
 style = compact
 ignore = ~/.hgignore_global
 
-[auth]
-comnica.schemes = https
-comnica.prefix = hg.comnica.com/
-comnica.username = oliva
-weblate.prefix = https://weblate.uhusystems.com/hg/
-
 [extensions]
 hgext.graphlog =
 color =

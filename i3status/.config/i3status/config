@@ -36,7 +36,7 @@ disk / {
 
 disk /home/oliva/Data {
 	format = "Data: %avail"
-	low_threshold = 7.5
+	low_threshold = 5
 	threshold_type = "percentage_avail"
 	separator = false
 	separator_block_width = 16
