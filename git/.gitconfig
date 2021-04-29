@@ -15,6 +15,7 @@
 	l  = log --oneline --graph
 	st = status --short --column=auto
 	ls = ls-files
+	shallow = clone --depth 1
 
 [core]
 	excludesfile = /home/oliva/.gitignore_global
