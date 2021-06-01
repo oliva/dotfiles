@@ -2,25 +2,27 @@
 	"position": "bottom",
 	"height": 28,
 
-	"modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-	//"modules-center": ["sway/window"],
-	"modules-right": ["idle_inhibitor", "network", "custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "pulseaudio", "tray", "clock"],
+	"modules-left": ["sway/workspaces", "sway/mode"],
+	"modules-center": [],
+	"modules-right": ["disk#/", "disk#data", "network", "network#ktk", "network#wg","custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "pulseaudio", "tray", "clock"],
 
 	// Modules configuration
 	"sway/workspaces": {
+		"enable-bar-scroll": true,
+		"disable-scroll-wraparound": true,
 		"format": "{icon}",
 		"format-icons": {
-			 "0": "+?",
-			 "1": "M1",
-			 "2": "M2",
-			 "3": "M3",
-			 "4": "M4",
-			 "5": "M5",
-			 "6": "S6",
-			 "7": "S7",
-			 "8": "S8",
-			 "9": "S9",
-			"10": "S0",
+			 "0": "?",
+			 "1": "1",
+			 "2": "2",
+			 "3": "3",
+			 "4": "4",
+			 "5": "5",
+			 "6": "6",
+			 "7": "7",
+			 "8": "8",
+			 "9": "9",
+			"10": "0",
 			"11": "+1",
 			"12": "+2",
 			"13": "+3",
@@ -33,10 +35,6 @@
 			"20": "+0"
 		}
 	},
-	"sway/mode": {
-    	"format": "fasz {}",
-    	"max-length": 50
-	},
 
 	"idle_inhibitor": {
 		"format": "{icon}",
@@ -46,9 +44,30 @@
 		}
 	},
 
+	"disk#/": {
+		"format": "/: {free}",
+		"path": "/",
+		"interval": 5,
+		"states": {
+			"normal": 90,
+			"warn": 95,
+			"crit": 100
+		}
+	},
+	"disk#data": {
+		"format": "Data: {free}",
+		"path": "/var/cache/pacman/pkg",
+		"interval": 5,
+		"states": {
+			"normal": 90,
+			"warn": 95,
+			"crit": 100
+		}
+	},
+
 	"custom/psi": {
-		"format": "{} \uf2db / \uf538 / \uf1c0",
-		"exec": "psi_mon -s cpu,memory,io,sum",
+		"format": "{}",
+		"exec": "psi_mon -s cpu,memory,io",
 		"interval": 2,
 		"tooltip": false
 	},
@@ -58,7 +77,7 @@
 		"input-filename": "temp1_input",
 		"critical-threshold": 80,
 		"format": "{temperatureC}°C {icon}",
-		"format-icons": ["", "", ""],
+		"format-icons": "",
 		"tooltip": false
 	},
 	"temperature#gpu": {
@@ -66,43 +85,45 @@
 		"input-filename": "temp1_input",
 		"critical-threshold": 80,
 		"format": "{temperatureC}°C {icon}",
-		"format-icons": ["", "", ""],
+		"format-icons": "",
 		"tooltip": false
 	},
 
 	"custom/chbacklight": {
 		"format": " {}%",
+		"exec": "chbacklight cur %",
 		"interval": "5",
 		"tooltip": false,
-		"exec": "chbacklight cur %",
 		"on-scroll-up": "chbacklight +2",
 		"on-scroll-down": "chbacklight -2"
 	},
 
 	"network": {
-		"format-wifi": "{essid} ({signalStrength}%) ",
+		"format": "{ifname}: {ipaddr}/{cidr}",
+		"format-wifi": "{essid} {signaldBm}: {ipaddr}/{cidr} ",
 		"format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-		"format-linked": "{ifname} (No IP)",
-		"format-disconnected": "Disconnected ⚠",
-		"format-alt": "{ifname}: {ipaddr}/{cidr}"
+		"format-linked": "{ifname}",
+		"format-disconnected": "{ifname}"
+	},
+	"network#ktk": {
+		"interface": "tun-ktk",
+		"format": "KTK",
+		"format-disconnected": "KTK"
+	},
+	"network#wg": {
+		"interface": "wg",
+		"format": "wg",
+		"format-disconnected": "wg"
 	},
 
 	"pulseaudio": {
 		"scroll-step": 2,
-		"format": "{volume}% {icon}",
-		"format-bluetooth": "{volume}% {icon}",
-		"format-bluetooth-muted": " {icon}",
-		"format-muted": " {format_source}",
-		"format-source": "{volume}% ",
-		"format-source-muted": "",
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-bluetooth-muted": "🔇",
+		"format-muted": "🔇",
 		"format-icons": {
-			"headphone": "",
-			"hands-free": "",
-			"headset": "",
-			"phone": "",
-			"portable": "",
-			"car": "",
-			"default": ["", "", ""]
+			"default": ["🔈", "🔉", "🔊"]
 		},
 		"on-click": "pavucontrol"
 	},

@@ -1,0 +1,37 @@
+* {
+	border: none;
+	font-family: "DejaVu Sans Mono 11";
+}
+
+window#waybar {
+	background: rgba(0, 0, 0, 0.8);
+	color: white;
+}
+
+#workspaces button {
+	padding: 0 5px;
+}
+
+#workspaces button.visible {
+	background: gray;
+	color: black;
+}
+
+#disk.warn {
+	color: yellow
+}
+#disk.crit {
+	color: red
+}
+
+#network.disconnected {
+	color: red
+}
+
+.modules-right * {
+	padding: 0 10px;
+}
+
+#tray {
+	padding: 0 0;
+}
