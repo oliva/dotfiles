@@ -229,6 +229,8 @@ input "1386:770:Wacom_Intuos_PT_S_(WL)_Pen" map_to_output DP-1
 #
 # Layout stuff:
 #
+	workspace_layout tabbed
+
 	# You can "split" the current object of your focus with
 	# $mod+b or $mod+v, for horizontal and vertical splits
 	# respectively.
@@ -293,9 +295,10 @@ exec psi_mon -w -o /run/user/5471/psi_mon
 
 exec spotify
 exec pavucontrol
+exec blueman-applet
 exec blueman-manager
 
-assign '[app_id="Spotify"]' workspace number 9
+assign '[class="Spotify"]' workspace number 9
 assign '[app_id="pavucontrol"]' workspace number 10
 assign '[app_id="blueman-manager"]' workspace number 10
 

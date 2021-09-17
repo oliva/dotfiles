@@ -32,6 +32,6 @@ window#waybar {
 	padding: 0 10px;
 }
 
-#tray {
+#tray, #tray image {
 	padding: 0 0;
 }

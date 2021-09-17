@@ -1,18 +1,44 @@
 {
-	"always_show_minimap_viewport": true,
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	//looks
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"theme": "Adaptive.sublime-theme",
+	"hardware_acceleration": "opengl",
+	//font
 	"font_face": "Inconsolata",
 	"font_size": 19,
-	"ignored_packages":
-	[
-		"Vintage"
-	],
+
+	//title bar
+	"show_rel_path": false,
+	//tabs
+	"highlight_modified_tabs": true,
+	"show_tab_close_buttons": false,
+	"overlay_scroll_bars": "disabled",
+	"hide_tab_scrolling_buttons": true,
+	"hide_new_tab_button": true,
+	//gutter
+	"fade_fold_buttons": false,
+	//textarea
+	"caret_style": "smooth",
+	"draw_white_space": ["selection", "all_tabs", "leading_mixed", "isolated", "trailing"],
 	"rulers":
 	[
 		72,
 		80
 	],
+	"control_character_style": "names",
+	"scroll_context_lines": 2,
+	//minimap
+	"always_show_minimap_viewport": true,
+	//status bar
+	"show_sidebar_button": false,
 	"show_encoding": true,
 	"show_line_endings": true,
-	"theme": "Adaptive.sublime-theme"
+
+	//behaviour
+	"default_line_ending": "system",
+	"auto_complete_commit_on_tab": true,
+	"auto_complete_cycle": true,
+	"auto_complete_use_history": true,
+	"auto_find_in_selection": true,
+	"close_windows_when_empty": true,
 }
