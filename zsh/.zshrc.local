@@ -18,7 +18,7 @@ alias ln='ln -i'
 	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-ZSH_HIGHLIGHT_PATTERNS+=('doas *' 'fg=blue,bold')
+ZSH_HIGHLIGHT_PATTERNS+=('sudo *' 'fg=blue,bold')
 ZSH_HIGHLIGHT_PATTERNS+=('sudo *' 'fg=blue,bold')
 ZSH_HIGHLIGHT_PATTERNS+=('sudoedit *' 'fg=blue,bold')
 
@@ -97,20 +97,19 @@ alias pcregrep='pcregrep --color=auto'
 alias rsync='rsync --info=progress2'
 alias screen='exec screen'
 alias shu='shutdown now'
-alias spindown='cd /sys/dev/block; for sd in $(for b in `ls`; do [[ -e $b/device && `cat $b/queue/rotational` = 1 ]] && ls $b |grep sd |sed '\''s/\(.*\)[0-9]/\/dev\/\1/g'\'' |uniq; done); do doas hdparm -y $sd; done; cd -1'
+alias spindown='cd /sys/dev/block; for sd in $(for b in `ls`; do [[ -e $b/device && `cat $b/queue/rotational` = 1 ]] && ls $b |grep sd |sed '\''s/\(.*\)[0-9]/\/dev\/\1/g'\'' |uniq; done); do sudo hdparm -y $sd; done; cd -1'
 alias sqlite3='sqlite3 -column -header'
 alias startx='echo nope'
-alias sudo='doas'
 alias sway='exec sway'
 alias sync='time sync'
 alias trafhum-today='ssh serperior curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
 alias v='viewnior'
 alias vim='nvim'
 alias vimdiff='nvim -d'
-alias vnc='set -x; vncserver :1; doas nft add rule inet filter input ip saddr ${SSH_CLIENT%% *} tcp dport 5901 accept; set +x'
+alias vnc='set -x; vncserver :1; sudo nft add rule inet filter input ip saddr ${SSH_CLIENT%% *} tcp dport 5901 accept; set +x'
 alias watch='watch -d -p -c -n1'
 alias which='which -a'
-alias win='doas efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager$)") && reboot'
+alias win='sudo efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager$)") && reboot'
 alias youtube-viewer='noglob youtube-viewer'
 alias youtube-dl='noglob youtube-dl'
 export LESSOPEN="|source-highlight -f esc -i %s"
@@ -129,7 +128,7 @@ freemem() {
 echo -e '$reset_colorbefore:$fg[green]'
 free #|grep -v 'buffers/cache'
 sync
-doas su -c 'echo 1 > /proc/sys/vm/drop_caches' &> /dev/null
+sudo su -c 'echo 1 > /proc/sys/vm/drop_caches' &> /dev/null
 echo -e '\n$reset_colorafter:$fg[green]'
 free #|grep -v 'buffers/cache'
 }
@@ -151,12 +150,12 @@ big() { #list files and diectories by size
 }
 
 update() {
-	doas pacman -Sy
+	sudo pacman -Sy
 	yay -Su --noconfirm ||
-		doas pacman -Su --noconfirm
-	doas pacman -Fy
-	doas paccache -rk2
-	doas paccache -ruk0
+		sudo pacman -Su --noconfirm
+	sudo pacman -Fy
+	sudo paccache -rk2
+	sudo paccache -ruk0
 }
 
 4download() { #imageboard archiver
@@ -259,13 +258,13 @@ umount() {
 		[[ -n `mount |grep -F "$(dirname $mp/.)" |grep -F 'type fuse'` ]] &&
 			fusermount -u $mp ||
 			/usr/bin/umount $mp 2>&0 ||
-			doas /usr/bin/umount $mp
+			sudo /usr/bin/umount $mp
 	done
 }
 
 mount() {
 	/usr/bin/mount $@ ||
-		doas /usr/bin/mount $@
+		sudo /usr/bin/mount $@
 }
 
 extractsrt() {
@@ -359,11 +358,11 @@ mklxc() {
 	echo "Using name '${name}', ${cpu} cpus and ${mem}M of memory"
 
 	[[ -z $4 ]] &&
-		doas lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs ||
-		doas lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs -- -d $4 -r $5 -a $6
-	doas chroot /var/lib/lxc/${name}/rootfs /bin/passwd root || {
+		sudo lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs ||
+		sudo lxc-create -n ${name} -t /usr/share/lxc/templates/lxc-download -B btrfs -- -d $4 -r $5 -a $6
+	sudo chroot /var/lib/lxc/${name}/rootfs /bin/passwd root || {
 		echo 'Deleting root password'
-		doas chroot /var/lib/lxc/${name}/rootfs /bin/passwd -d root
+		sudo chroot /var/lib/lxc/${name}/rootfs /bin/passwd -d root
 	}
 	virsh -c lxc:/// define <(cat <<- END
 		<domain type='lxc'>
@@ -421,8 +420,8 @@ rmlxc() {
 
 	virsh -c lxc:/// destroy ${name}
 	virsh -c lxc:/// undefine ${name}
-	doas btrfs subvol del /var/lib/lxc/${name}/rootfs
-	doas rm -rf /var/lib/lxc/${name}
+	sudo btrfs subvol del /var/lib/lxc/${name}/rootfs
+	sudo rm -rf /var/lib/lxc/${name}
 }
 
 de() {
