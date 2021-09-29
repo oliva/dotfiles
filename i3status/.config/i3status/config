@@ -13,7 +13,7 @@ general {
 }
 
 order += "disk /"
-order += "disk /home/oliva/Data"
+order += "disk /var/cache/pacman/pkg"
 #order += "wireless wlp1s0"
 order += "ethernet br0"
 order += "ethernet tun-ktk"
@@ -34,7 +34,7 @@ disk / {
 	separator_block_width = 16
 }
 
-disk /home/oliva/Data {
+disk /var/cache/pacman/pkg {
 	format = "Data: %avail"
 	low_threshold = 5
 	threshold_type = "percentage_avail"

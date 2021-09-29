@@ -1,7 +1,7 @@
 #~/.screenrc
 altscreen on
 term screen-256color
-shelltitle "$ |oliva: "
+shelltitle "$ |screen: "
 startup_message off
 multiuser on
 defscrollback 65536

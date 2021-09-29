@@ -62,13 +62,6 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-3]=''
 ZSH_HIGHLIGHT_STYLES[bracket-level-4]=''
 
 
-#perl local::lib hack
-#export PATH="/home/oliva/perl5/bin${PATH:+:${PATH}}"
-#export PERL5LIB="/home/oliva/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
-#export PERL_LOCAL_LIB_ROOT="/home/oliva/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
-#export PERL_MB_OPT="--install_base \"/home/oliva/perl5\""
-#export PERL_MM_OPT="INSTALL_BASE=/home/oliva/perl5"
-
 #set some aliases
 alias :w='sync'
 alias :wq='sync; exit'
@@ -91,7 +84,6 @@ alias ls='ls --color=auto'
 alias m='mpv'
 alias m_='mpv --sub-color=#7fffffff --sub-border-color=#5f000000'
 alias m__='mpv --video-align-y=-1 --sub-color=#9fffffff --sub-border-color=#7f000000'
-alias mac='/home/oliva/Data/macos-v2/x86_64-softmmu/qemu-system-x86_64 -enable-kvm -m 2048 -cpu core2duo -M q35 -usb -device usb-kbd -device usb-mouse -device isa-applesmc,osk="`cat Private/smc_secret`" -kernel /home/oliva/Downloads/chameleon_svn2360_boot -smbios type=2 -device ide-drive,bus=ide.2,drive=MacHDD -drive id=MacHDD,if=none,file=/home/oliva/Data/libvirt/images/Mac.qcow2 -netdev user,id=hub0port0 -device e1000-82545em,netdev=hub0port0,id=mac_vnet0 -monitor stdio -smp cores=2,threads=2,sockets=1'
 alias mkbtrfs='mkfs.btrfs'
 alias mkdir='mkdir -pv'
 alias nano='nano -mw'

@@ -14,7 +14,7 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' max-errors 2
 zstyle ':completion::complete:*' use-cache 1
-zstyle :compinstall filename '/home/oliva/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 
 HISTFILE=~/.history
 HISTSIZE=65536

@@ -1,6 +1,6 @@
 address=0.0.0.0
 #enable_auth=false
-#username=oliva
+#username=vncuser
 #password=hunter2
-#private_key_file=/home/oliva/.config/wayvnc/key.pem
-#certificate_file=/home/oliva/.config/wayvnc/cert.pem
+#private_key_file=~/.config/wayvnc/key.pem
+#certificate_file=~/.config/wayvnc/cert.pem
