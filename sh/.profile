@@ -48,7 +48,8 @@ export OCIO=$HOME/Data/filmic-blender/config.ocio
 #Support for tray icons on shit applications
 #export XDG_CURRENT_DESKTOP=Unity
 
-dbus-update-activation-environment DISPLAY XAUTHORITY
+[ -n "$DBUS_SESSION_BUS_ADDRESS" ] &&
+	dbus-update-activation-environment DISPLAY XAUTHORITY
 
 #sqlocate configuration
 LOCFILE=~/sqlocate.db

@@ -35,7 +35,8 @@ set $menu kupfer
 output DP-1 resolution 3840x2160 position 0,0
 output DP-2 resolution 1920x1080 position 3840,0
 output HDMI-A-A disable
-output "*" scale 1
+output * scale 1
+output * adaptive_sync on
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -302,14 +303,6 @@ assign '[class="Spotify"]' workspace number 9
 assign '[app_id="pavucontrol"]' workspace number 10
 assign '[app_id="blueman-manager"]' workspace number 10
 
-
-## Citra 3DS
-#output DP-1 resolution 3840x2160 position 0,0 transform 90
-#output DP-2 resolution 1920x1080 position 2160,0
-#output "*" scale 1
-# something's wrong with this
-#input "1386:770:Wacom_Intuos_PT_S_Pen" map_to_region 216 1920 1728 1296
-#input "1386:770:Wacom_Intuos_PT_S_(WL)_Pen" map_to_region 216 1920 1728 1296
 
 #
 # Additional config files:

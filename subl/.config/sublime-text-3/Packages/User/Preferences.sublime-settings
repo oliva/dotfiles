@@ -5,7 +5,7 @@
 	"hardware_acceleration": "opengl",
 	//font
 	"font_face": "Inconsolata",
-	"font_size": 19,
+	"font_size": 18,
 
 	//title bar
 	"show_rel_path": false,
@@ -20,11 +20,7 @@
 	//textarea
 	"caret_style": "smooth",
 	"draw_white_space": ["selection", "all_tabs", "leading_mixed", "isolated", "trailing"],
-	"rulers":
-	[
-		72,
-		80
-	],
+	"rulers": [72, 80],
 	"control_character_style": "names",
 	"scroll_context_lines": 2,
 	//minimap
@@ -41,4 +37,5 @@
 	"auto_complete_use_history": true,
 	"auto_find_in_selection": true,
 	"close_windows_when_empty": true,
+	"dictionary": ["Packages/Language - English/en_US.dic"],
 }
