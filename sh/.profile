@@ -56,3 +56,4 @@ LOCFILE=~/sqlocate.db
 LOCTOP=/
 LOCSKIP="/snapshot ~/Private"
 export LOCFILE LOCTOP LOCSKIP
+export ESPIDF=/opt/esp-idf

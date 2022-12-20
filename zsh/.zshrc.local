@@ -62,6 +62,14 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-3]=''
 ZSH_HIGHLIGHT_STYLES[bracket-level-4]=''
 
 
+# autosuggestions
+[[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
+	source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
+	source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
+
+
 #set some aliases
 alias :w='sync'
 alias :wq='sync; exit'
@@ -82,8 +90,8 @@ alias lid='[ "`cat /proc/acpi/button/lid/LID/state |grep open`" ]'
 alias locate='sqlocate'
 alias ls='ls --color=auto'
 alias m='mpv'
-alias m_='mpv --sub-color=#7fffffff --sub-border-color=#5f000000'
-alias m__='mpv --video-align-y=-1 --sub-color=#9fffffff --sub-border-color=#7f000000'
+alias m_='mpv --profile=sub-62'
+alias m__='mpv --video-align-y=-1 --profile=sub-75'
 alias mkbtrfs='mkfs.btrfs'
 alias mkdir='mkdir -pv'
 alias nano='nano -mw'
@@ -102,7 +110,7 @@ alias sqlite3='sqlite3 -column -header'
 alias startx='echo nope'
 alias sway='exec sway'
 alias sync='time sync'
-alias trafhum-today='ssh serperior curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
+alias trafhum-today='ssh servine curl -s http://blade2.ktk.bme.hu/stats/trafhum-today |head'
 alias v='viewnior'
 alias vim='nvim'
 alias vimdiff='nvim -d'
@@ -151,8 +159,8 @@ big() { #list files and diectories by size
 
 update() {
 	sudo pacman -Sy
-	yay -Su --noconfirm ||
-		sudo pacman -Su --noconfirm
+	yay -Su --noconfirm $@ ||
+		sudo pacman -Su --noconfirm $@
 	sudo pacman -Fy
 	sudo paccache -rk2
 	sudo paccache -ruk0
@@ -473,11 +481,11 @@ til() {
 }
 
 function ansible-playbook-handler() {
-	file=${@[0]}
+	file=${@[1]}
 	shift
 	typeset -a args vars hosts
 	for arg in $@; do
-		case $@ in
+		case $arg in
 			-*)
 				args+=$arg ;;
 			*=*)
