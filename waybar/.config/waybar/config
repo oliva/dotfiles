@@ -4,7 +4,7 @@
 
 	"modules-left": ["sway/workspaces", "sway/mode"],
 	"modules-center": [],
-	"modules-right": ["disk#/", "disk#data", "network", "network#ktk", "network#wg","custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "pulseaudio", "tray", "clock"],
+	"modules-right": ["disk#/", "disk#data", "network", "network#ktk", "network#wg","custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "battery", "pulseaudio", "tray", "clock"],
 
 	// Modules configuration
 	"sway/workspaces": {
@@ -126,6 +126,11 @@
 			"default": ["🔈", "🔉", "🔊"]
 		},
 		"on-click": "pavucontrol"
+	},
+
+	"battery": {
+		"format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
 	},
 
 	"tray": {
