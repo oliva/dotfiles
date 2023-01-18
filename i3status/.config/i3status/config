@@ -16,7 +16,6 @@ order += "disk /"
 order += "disk /var/cache/pacman/pkg"
 #order += "wireless wlp1s0"
 order += "ethernet br0"
-order += "ethernet tun-ktk"
 order += "ethernet wg"
 #order += "cpu_usage"
 #order += "memory"
@@ -53,13 +52,6 @@ ethernet br0 {
 	# if you use %speed, i3status requires root privileges
 	format_up = "E: %ip"
 	format_down = "E"
-	separator = false
-	separator_block_width = 16
-}
-
-ethernet tun-ktk {
-	format_up = "KTK"
-	format_down = "KTK"
 	separator = false
 	separator_block_width = 16
 }

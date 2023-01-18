@@ -4,7 +4,7 @@
 
 	"modules-left": ["sway/workspaces", "sway/mode"],
 	"modules-center": [],
-	"modules-right": ["disk#/", "disk#data", "network", "network#ktk", "network#wg","custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "battery", "pulseaudio", "tray", "clock"],
+	"modules-right": ["disk#/", "disk#data", "network", "network#wg","custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "battery", "pulseaudio", "tray", "clock"],
 
 	// Modules configuration
 	"sway/workspaces": {
@@ -104,11 +104,6 @@
 		"format-ethernet": "{ifname}: {ipaddr}/{cidr}",
 		"format-linked": "{ifname}",
 		"format-disconnected": "{ifname}"
-	},
-	"network#ktk": {
-		"interface": "tun-ktk",
-		"format": "KTK",
-		"format-disconnected": "KTK"
 	},
 	"network#wg": {
 		"interface": "wg",

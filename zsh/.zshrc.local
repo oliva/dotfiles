@@ -90,7 +90,7 @@ alias lid='[ "`cat /proc/acpi/button/lid/LID/state |grep open`" ]'
 alias locate='sqlocate'
 alias ls='ls --color=auto'
 alias m='mpv'
-alias m_='mpv --profile=sub-62'
+alias m_='mpv --profile=sub-62 --profile=freesync'
 alias m__='mpv --video-align-y=-1 --profile=sub-75'
 alias mkbtrfs='mkfs.btrfs'
 alias mkdir='mkdir -pv'
@@ -159,8 +159,8 @@ big() { #list files and diectories by size
 
 update() {
 	sudo pacman -Sy
-	yay -Su --noconfirm $@ ||
-		sudo pacman -Su --noconfirm $@
+	ionice -c 3 yay -Su --noconfirm ||
+		ionice -c 3 sudo pacman -Su --noconfirm
 	sudo pacman -Fy
 	sudo paccache -rk2
 	sudo paccache -ruk0
