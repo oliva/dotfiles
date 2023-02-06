@@ -1,0 +1,53 @@
+@define-color hl   #7cb342;
+@define-color hlfg #000000;
+@define-color fg   #ffffff;
+@define-color bg   #212121;
+@define-color trim #616161;
+
+window {
+	margin: 5px;
+	border: none;
+	background-color: transparent;
+	color: @fg;
+}
+
+#input {
+	margin: 5px;
+	border: 2px solid @trim;
+	background-color: @bg;
+	color: @fg;
+}
+
+#inner-box {
+	margin: 0px;
+	border: none;
+	background-color: transparent;
+}
+
+#outer-box {
+	margin: 0px;
+	border: none;
+	background-color: transparent;
+}
+
+#scroll {
+	margin: 5px;
+	border: none;
+	background-color: @bg;
+}
+
+#entry {
+	margin: none;
+	border: none;
+	background-color: @bg;
+	color: @fg;
+}
+
+#entry:selected {
+	background-color: @hl;
+	color: @hlfg;
+}
+
+#text {
+	color: inherit;
+}
