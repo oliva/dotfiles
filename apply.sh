@@ -2,7 +2,7 @@
 IFS='
 '
 
-stowdir="$(dirname "$(realpath "$0")")"
+dir="$(dirname "$(realpath "$0")")"
 target="$HOME"
 
 log=0 # -1: quiet 0: normal 1: no-run 2: debug
@@ -33,7 +33,7 @@ done
 
 # use all modules by default
 [ -z "$modules" ] &&
-	modules="$(find "$stowdir" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')"
+	modules="$(find "$dir"/* -mindepth 0 -maxdepth 0 -type d |sed 's|.*/||')"
 
 [ $log -ge 2 ] &&
 	echo verb $log &&
@@ -51,7 +51,7 @@ for cmd in $modules; do
 	}
 
 	# iterate over files
-	for file in $(find "$stowdir/$cmd" -type f -printf '%P\n'); do
+	for file in $(find "$dir/$cmd/" -type f |sed "s|^$dir/$cmd/||"); do
 
 		# ensure parent dir
 		destdir="$(dirname "$target/$file")"
@@ -64,9 +64,9 @@ for cmd in $modules; do
 		fi
 
 		# get relative symlink path
-		relpath="$(realpath --relative-to="$destdir" "$stowdir/$cmd/$file")"
+		relpath="$(realpath --relative-to="$destdir" "$dir/$cmd/$file")"
 		[ $log -ge 2 ] && {
-			echo src "$stowdir/$cmd/$file"
+			echo src "$dir/$cmd/$file"
 			echo dst "$target/$file"
 			echo lnk "$relpath"
 		}
@@ -79,9 +79,9 @@ for cmd in $modules; do
 		else
 
 			# don't overwrite if files differ
-			if [ -e "$target/$file" ] && ! diff -q "$target/$file" "$stowdir/$cmd/$file" > /dev/null; then
-				echo target "$target/$file" and source "$stowdir/$cmd/$file" differ, not replacing
-				[ $log -ge 2 ] && diff "$target/$file" "$stowdir/$cmd/$file" || true
+			if [ -e "$target/$file" ] && ! diff -q "$target/$file" "$dir/$cmd/$file" > /dev/null; then
+				echo target "$target/$file" and source "$dir/$cmd/$file" differ, not replacing
+				[ $log -ge 2 ] && diff "$target/$file" "$dir/$cmd/$file" || true
 				continue
 			fi
 			reallink=$(stat --printf %N "$target/$file" 2>/dev/null |grep -o " -> '.*'$" |grep -o "'.*'" |grep -o "[^']*" || true)
