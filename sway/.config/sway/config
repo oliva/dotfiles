@@ -33,7 +33,7 @@ set $menu kupfer
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output DP-1 resolution 3840x2160 position 0,0
-output DP-2 resolution 1920x1080 position 3840,0
+output DP-2 resolution 1920x1080 position 3840,1080
 output HDMI-A-A disable
 output * scale 1
 output * adaptive_sync on
@@ -302,10 +302,9 @@ exec xrdb -merge .Xresources
 exec bt_presence
 exec psi_mon -w -o /run/user/5471/psi_mon
 
-exec spotify
-exec pavucontrol
+#exec pavucontrol
 exec blueman-applet
-exec blueman-manager
+#exec blueman-manager
 
 assign '[class="Spotify"]' workspace number 9
 assign '[app_id="pavucontrol"]' workspace number 10

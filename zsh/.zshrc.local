@@ -117,7 +117,7 @@ alias vimdiff='nvim -d'
 alias vnc='set -x; vncserver :1; sudo nft add rule inet filter input ip saddr ${SSH_CLIENT%% *} tcp dport 5901 accept; set +x'
 alias watch='watch -d -p -c -n1'
 alias which='which -a'
-alias win='sudo efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager$)") && reboot'
+alias win='sudo efibootmgr -n $(efibootmgr |grep -m1 -Po "(?<=^Boot)....(?=\* Windows Boot Manager)") && reboot'
 alias youtube-viewer='noglob youtube-viewer'
 alias youtube-dl='noglob youtube-dl'
 export LESSOPEN="|source-highlight -f esc -i %s"
