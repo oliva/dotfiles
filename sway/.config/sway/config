@@ -305,6 +305,7 @@ exec psi_mon -w -o /run/user/5471/psi_mon
 #exec pavucontrol
 exec blueman-applet
 #exec blueman-manager
+exec mako
 
 assign '[class="Spotify"]' workspace number 9
 assign '[app_id="pavucontrol"]' workspace number 10

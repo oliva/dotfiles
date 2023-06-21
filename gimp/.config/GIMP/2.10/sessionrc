@@ -7,11 +7,15 @@
 
 (session-info "toplevel"
     (factory-entry "gimp-single-image-window")
-    (open-on-exit))
-(session-info "toplevel"
-    (factory-entry "gimp-toolbox-window")
+    (position 0 32)
+    (size 1920 1011)
     (open-on-exit)
+    (aux-info
+        (left-docks-width "204")
+        (right-docks-width "545")
+        (maximized "yes"))
     (gimp-toolbox
+        (side left)
         (book
             (current-page 0)
             (dockable "gimp-tool-options"
@@ -24,7 +28,7 @@
                 (aux-info
                     (show-button-bar "true")
                     (edit-active "true")
-                    (current-data "xwayland-relative-pointer:39")))
+                    (current-data "Core Pointer")))
             (dockable "gimp-dynamics-list"
                 (locked)
                 (tab-style automatic)
@@ -35,7 +39,7 @@
                 (tab-style automatic)
                 (aux-info
                     (edit-active "true")
-                    (current-data "Pressure Size")))
+                    (current-data "Dynamics Off")))
             (dockable "gimp-brush-grid"
                 (locked)
                 (tab-style automatic)
@@ -46,18 +50,13 @@
                 (tab-style automatic)
                 (aux-info
                     (edit-active "true")
-                    (current-data "2. Hardness 090")))
+                    (current-data "2. Hardness 050")))
             (dockable "gimp-tool-preset-list"
                 (tab-style automatic)
                 (aux-info
-                    (show-button-bar "true"))))))
-(session-info "toplevel"
-    (factory-entry "gimp-dock-window")
-    (open-on-exit)
-    (aux-info
-        (show-image-menu "false")
-        (follow-active-image "true"))
+                    (show-button-bar "true")))))
     (gimp-dock
+        (side right)
         (book
             (current-page 4)
             (dockable "gimp-color-editor"
@@ -71,7 +70,7 @@
                 (aux-info
                     (show-button-bar "true")
                     (edit-active "true")
-                    (current-data "Custom")))
+                    (current-data "FG to BG (RGB)")))
             (dockable "gimp-palette-editor"
                 (locked)
                 (tab-style automatic)
@@ -97,6 +96,7 @@
                 (aux-info
                     (show-button-bar "true"))))
         (book
+            (position 557)
             (current-page 0)
             (dockable "gimp-layer-list"
                 (locked)
@@ -126,9 +126,21 @@
                 (tab-style automatic)
                 (aux-info
                     (histogram-scale "logarithmic"))))))
+(session-info "toplevel"
+    (factory-entry "gimp-empty-image-window")
+    (position 0 25)
+    (size 1920 1027))
+(session-info "toplevel"
+    (factory-entry "gimp-file-save-dialog")
+    (position 456 180)
+    (size 1008 692))
+(session-info "toplevel"
+    (factory-entry "gimp-file-export-dialog")
+    (position 456 180)
+    (size 1008 692))
 
 (hide-docks no)
-(single-window-mode no)
+(single-window-mode yes)
 (show-tabs yes)
 (tabs-position 0)
 (last-tip-shown 0)
