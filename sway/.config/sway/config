@@ -23,7 +23,7 @@ set $right l
 # Your preferred terminal emulator
 set $term alacritty
 # Your preferred application launcher
-set $menu kupfer
+set $menu wofi
 
 ### Output configuration
 #
@@ -56,7 +56,7 @@ font pango:DejaVu Sans Mono 9
 
 #border settings: 1px with those on the side of a display hidden
 default_border normal 1
-hide_edge_borders both
+hide_edge_borders smart
 
 #colors
 client.focused          #000000cc #000000cc #ffffffff #000000cc #000000cc
@@ -245,6 +245,7 @@ input "1386:770:Wacom_Intuos_PT_S_(WL)_Pen" map_to_output DP-1
 	# respectively.
 	bindsym --to-code $mod+z splith
 	bindsym --to-code $mod+x splitv
+	bindsym --to-code $mod+c splitv; layout tabbed
 
 	# Switch the current container between different layout styles
 	#bindsym --to-code $mod+#   layout stacking
@@ -299,22 +300,14 @@ bar {
 
 exec xrdb -merge .Xresources
 #exec swaylock
-exec bt_presence
-exec psi_mon -w -o /run/user/5471/psi_mon
-
-#exec pavucontrol
-exec blueman-applet
-#exec blueman-manager
 exec mako
-
-assign '[class="Spotify"]' workspace number 9
-assign '[app_id="pavucontrol"]' workspace number 10
-assign '[app_id="blueman-manager"]' workspace number 10
-
+exec blueman-applet
+#exec pavucontrol
+#exec blueman-manager
 
 #
 # Additional config files:
 #
 
 include *.conf
-#include /etc/sway/config.d/*
+include /etc/sway/config.d/*
