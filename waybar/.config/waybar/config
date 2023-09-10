@@ -1,10 +1,10 @@
 {
 	"position": "bottom",
-	"height": 28,
+	"height": 22,
 
-	"modules-left": ["sway/workspaces", "sway/mode"],
+	"modules-left": ["sway/workspaces"],
 	"modules-center": [],
-	"modules-right": ["disk#/", "disk#data", "network", "network#wg","custom/psi", "temperature#cpu", "temperature#gpu", "custom/chbacklight", "battery", "pulseaudio", "tray", "clock"],
+	"modules-right": ["sway/scratchpad", "disk#/", "network", "network#wg", "custom/psi", "temperature#cpu", "custom/chbacklight", "battery", "pulseaudio", "tray", "sway/language", "clock"],
 
 	// Modules configuration
 	"sway/workspaces": {
@@ -34,6 +34,18 @@
 			"19": "+9",
 			"20": "+0"
 		}
+	},
+
+	"sway/scratchpad": {
+		"format": "{icon} {count}",
+		"show-empty": false,
+		"format-icons": ["", ""],
+		"tooltip": true,
+		"tooltip-format": "{app}: {title}"
+	},
+
+	"sway/language": {
+		"format": "{flag}"
 	},
 
 	"idle_inhibitor": {
@@ -73,19 +85,9 @@
 	},
 
 	"temperature#cpu": {
-		"hwmon-path-abs": "/sys/bus/pci/devices/0000:00:18.3/hwmon",
-		"input-filename": "temp1_input",
+		"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input",
 		"critical-threshold": 80,
-		"format": "{temperatureC}°C {icon}",
-		"format-icons": "",
-		"tooltip": false
-	},
-	"temperature#gpu": {
-		"hwmon-path-abs": "/sys/bus/pci/devices/0000:09:00.0/hwmon",
-		"input-filename": "temp1_input",
-		"critical-threshold": 80,
-		"format": "{temperatureC}°C {icon}",
-		"format-icons": "",
+		"format": "{temperatureC}°C",
 		"tooltip": false
 	},
 
@@ -135,7 +137,7 @@
 
 	"clock": {
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format": "{:%Y-%m-%d %H:%M:%S}",
+		"format": "{:%Y-%m-%d %H:%M:%OS}",
 		"interval": 1
 	}
 }

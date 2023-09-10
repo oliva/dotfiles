@@ -44,7 +44,7 @@ done
 # iterate over directories
 for cmd in $modules; do
 	# skip if command is not available
-	type -p $cmd > /dev/null || {
+	type $cmd > /dev/null || {
 		[ $log -ge 1 ] &&
 			echo skipping nonexistent cmd $cmd
 		continue

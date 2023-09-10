@@ -4,8 +4,9 @@
 	"theme": "Adaptive.sublime-theme",
 	"hardware_acceleration": "opengl",
 	//font
-	"font_face": "Inconsolata",
-	"font_size": 18,
+	//"font_face": "Inconsolata",
+	"font_face": "MesloLGMDZ Nerd Font",
+	"font_size": 17,
 
 	//title bar
 	"show_rel_path": false,
