@@ -92,7 +92,7 @@
 	},
 
 	"custom/chbacklight": {
-		"format": " {}%",
+		"format": "  {}%",
 		"exec": "chbacklight cur %",
 		"interval": "5",
 		"tooltip": false,
@@ -102,7 +102,7 @@
 
 	"network": {
 		"format": "{ifname}: {ipaddr}/{cidr}",
-		"format-wifi": "{essid} {signaldBm}: {ipaddr}/{cidr} ",
+		"format-wifi": "  {essid} {signaldBm}: {ipaddr}/{cidr}",
 		"format-ethernet": "{ifname}: {ipaddr}/{cidr}",
 		"format-linked": "{ifname}",
 		"format-disconnected": "{ifname}"
@@ -126,8 +126,8 @@
 	},
 
 	"battery": {
-		"format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
+		"format": "{icon}  {capacity}%",
+        "format-icons": [" ", " ", " ", " ", " "]
 	},
 
 	"tray": {
