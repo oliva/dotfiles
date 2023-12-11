@@ -6,13 +6,19 @@
 # you quit GIMP.  If this file isn't found, defaults are used.
 
 (session-info "toplevel"
+    (factory-entry "gimp-empty-image-window")
+    (position 0 0)
+    (size 1634 1302)
+    (monitor 1))
+(session-info "toplevel"
     (factory-entry "gimp-single-image-window")
-    (position 0 32)
-    (size 1920 1011)
+    (position 0 0)
+    (size 3840 2114)
+    (monitor 1)
     (open-on-exit)
     (aux-info
-        (left-docks-width "204")
-        (right-docks-width "545")
+        (left-docks-width "241")
+        (right-docks-width "411")
         (maximized "yes"))
     (gimp-toolbox
         (side left)
@@ -23,107 +29,107 @@
                 (tab-style preview)
                 (aux-info
                     (show-button-bar "true")))
+            (dockable "gimp-brush-editor"
+                (locked)
+                (tab-style icon)
+                (aux-info
+                    (edit-active "true")
+                    (current-data "2. Hardness 090")))
             (dockable "gimp-tool-preset-editor"
-                (tab-style automatic)
+                (locked)
+                (tab-style icon)
                 (aux-info
                     (show-button-bar "true")
                     (edit-active "true")
                     (current-data "Core Pointer")))
-            (dockable "gimp-dynamics-list"
-                (locked)
-                (tab-style automatic)
-                (aux-info
-                    (show-button-bar "true")))
             (dockable "gimp-dynamics-editor"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (aux-info
                     (edit-active "true")
-                    (current-data "Dynamics Off")))
-            (dockable "gimp-brush-grid"
+                    (current-data "Pressure Size")))
+            (dockable "gimp-mypaint-brush-grid"
                 (locked)
-                (tab-style automatic)
+                (tab-style preview)
+                (aux-info
+                    (show-button-bar "true"))))
+        (book
+            (position 1106)
+            (current-page 0)
+            (dockable "gimp-color-editor"
+                (locked)
+                (tab-style icon)
+                (aux-info
+                    (current-page "GimpColorSelect")))
+            (dockable "gimp-pattern-grid"
+                (locked)
+                (tab-style preview)
                 (aux-info
                     (show-button-bar "true")))
-            (dockable "gimp-brush-editor"
+            (dockable "gimp-gradient-editor"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (aux-info
+                    (show-button-bar "true")
                     (edit-active "true")
-                    (current-data "2. Hardness 050")))
-            (dockable "gimp-tool-preset-list"
-                (tab-style automatic)
+                    (current-data "Custom")))
+            (dockable "gimp-palette-editor"
+                (locked)
+                (tab-style icon)
+                (aux-info
+                    (show-button-bar "true")
+                    (edit-active "true")
+                    (current-data "Drawing")
+                    (zoom-factor "4.00")))
+            (dockable "gimp-palette-list"
+                (locked)
+                (tab-style icon)
+                (preview-size 128)
                 (aux-info
                     (show-button-bar "true")))))
     (gimp-dock
         (side right)
         (book
-            (current-page 4)
-            (dockable "gimp-color-editor"
-                (locked)
-                (tab-style automatic)
-                (aux-info
-                    (current-page "GimpColorScales")))
-            (dockable "gimp-gradient-editor"
-                (locked)
-                (tab-style automatic)
-                (aux-info
-                    (show-button-bar "true")
-                    (edit-active "true")
-                    (current-data "FG to BG (RGB)")))
-            (dockable "gimp-palette-editor"
-                (locked)
-                (tab-style automatic)
-                (aux-info
-                    (show-button-bar "true")
-                    (edit-active "true")
-                    (current-data "Color History")
-                    (zoom-factor "4.00")))
-            (dockable "gimp-palette-list"
-                (locked)
-                (tab-style automatic)
-                (preview-size 128)
-                (aux-info
-                    (show-button-bar "true")))
+            (current-page 0)
             (dockable "gimp-undo-history"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (aux-info
                     (show-button-bar "true")))
             (dockable "gimp-document-list"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (aux-info
                     (show-button-bar "true"))))
         (book
-            (position 557)
+            (position 757)
             (current-page 0)
             (dockable "gimp-layer-list"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (preview-size 32)
                 (aux-info
                     (show-button-bar "true")))
             (dockable "gimp-channel-list"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (preview-size 32)
                 (aux-info
                     (show-button-bar "true")))
             (dockable "gimp-vectors-list"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (preview-size 32)
                 (aux-info
                     (show-button-bar "true")))
             (dockable "gimp-device-status"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (aux-info
                     (show-button-bar "true")))
             (dockable "gimp-histogram-editor"
                 (locked)
-                (tab-style automatic)
+                (tab-style icon)
                 (aux-info
                     (histogram-scale "logarithmic"))))))
 
