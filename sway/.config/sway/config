@@ -54,6 +54,7 @@ titlebar_padding 4 2
 
 #border settings: 1px with those on the side of a display hidden
 default_border normal 1
+default_floating_border normal 1
 hide_edge_borders smart
 
 #colors

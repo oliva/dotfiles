@@ -7,7 +7,6 @@
 # Preferences dialog.
 
 (tile-cache-size 12G)
-(use-opencl yes)
 (prev-language "American English")
 (config-version "2.99.16")
 (interpolation-type lohalo)
@@ -67,6 +66,7 @@
 (save-session-info no)
 (theme "Darker")
 (icon-theme "Color")
+(user-manual-online yes)
 (image-convert-indexed-dither-type fs-lowbleed)
 (layer-add-mask-type alpha-transfer)
 (fill-options

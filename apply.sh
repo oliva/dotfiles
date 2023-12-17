@@ -51,7 +51,7 @@ for cmd in $modules; do
 	}
 
 	# iterate over files
-	for file in $(find "$dir/$cmd/" -type f |sed "s|^$dir/$cmd/||"); do
+	for file in $(find "$dir/$cmd/" -type f \! -path '*/.git/*' |sed "s|^$dir/$cmd/||"); do
 
 		# ensure parent dir
 		destdir="$(dirname "$target/$file")"
