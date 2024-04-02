@@ -125,9 +125,6 @@ alias -s exe='wine'
 alias -s jar='java -jar'
 alias -s yml='ansible-playbook-handler'
 
-#for accessing this file, anywhere
-alias -g .zshrc.local='~/.zshrc.local'
-
 #functions
 freemem() {
 #[[ "`whoami`" != "root" ]] && echo 'You got no right' && return
@@ -156,9 +153,11 @@ big() { #list files and diectories by size
 }
 
 update() {
+	force_packages=(firefox-nightly-bin)
 	sudo pacman -Sy
 	ionice -c 3 yay -Su --noconfirm ||
 		ionice -c 3 sudo pacman -Su --noconfirm
+	ionice -c 3 yay -S $force_packages
 	sudo pacman -Fy
 	sudo paccache -rk2
 	sudo paccache -ruk0
