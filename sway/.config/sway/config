@@ -1,13 +1,10 @@
 # Default config for sway
-#
 # Copy this to ~/.config/sway/config and edit it to your liking.
-#
 # Read `man 5 sway` for a complete reference.
 
 include /etc/sway/security.d/*
 
 ### Variables
-#
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 set $win Mod4
@@ -26,11 +23,8 @@ set $term alacritty
 set $menu wofi
 
 ### Output configuration
-#
 # Example configuration:
-#
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output * scale 1
 output * adaptive_sync off
@@ -109,9 +103,7 @@ input "6421:325:MemsArt_MA144_RF_Controller" {
 }
 
 ### Key bindings
-#
 # Basics:
-#
 	# start a terminal
 	bindsym --to-code $mod+Return exec $term
 
@@ -131,9 +123,7 @@ input "6421:325:MemsArt_MA144_RF_Controller" {
 	# exit sway (logs you out of your wayland session)
 	bindsym --to-code $mod+$alt+$sft+delete exit
 
-#
 # Moving around:
-#
 
 	# go to next/prev workspace on output
 	bindsym --to-code $mod+bracketleft workspace prev_on_output
@@ -166,9 +156,7 @@ input "6421:325:MemsArt_MA144_RF_Controller" {
 	bindsym --to-code $mod+$sft+Down  move down
 	bindsym --to-code $mod+$sft+Up    move up
 	bindsym --to-code $mod+$sft+Right move right
-#
 # Workspaces:
-#
 	# switch to workspace
 	bindsym --to-code $mod+grave  workspace 0
 	bindsym --to-code $mod+1      workspace 1
@@ -219,9 +207,7 @@ input "6421:325:MemsArt_MA144_RF_Controller" {
 	# We just use 1-10 as the default.
 
 
-#
 # Layout stuff:
-#
 	workspace_layout tabbed
 
 	# You can "split" the current object of your focus with
@@ -248,9 +234,7 @@ input "6421:325:MemsArt_MA144_RF_Controller" {
 	# move focus to the parent container
 	bindsym --to-code $mod+a focus parent
 	bindsym --to-code $mod+d focus child
-#
 # Scratchpad:
-#
 	# Sway has a "scratchpad", which is a bag of holding for windows.
 	# You can send windows there and get them back later.
 
@@ -262,9 +246,7 @@ input "6421:325:MemsArt_MA144_RF_Controller" {
 	bindsym --to-code $mod+$sft+s scratchpad show
 
 ### External
-#
 # Status Bar:
-#
 # Read `man 5 sway-bar` for more information about this section.
 bar {
 	swaybar_command waybar
@@ -278,17 +260,13 @@ bar {
 	#}
 }
 
-#
-# Session:
-#
-
+## Session
 exec xrdb -merge .Xresources
 #exec swaylock
 exec mako
+exec swayidle
 
-#
 # Additional config files:
-#
 
 include *.conf
 include /etc/sway/config.d/*

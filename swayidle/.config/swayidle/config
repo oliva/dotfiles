@@ -1,0 +1,8 @@
+idlehint 300
+
+timeout 300 'swaymsg output \* power off' resume 'swaymsg output \* power on'
+
+lock '/usr/local/bin/swaylock-pretty'
+
+before-sleep '/usr/local/bin/swaylock-pretty'
+after-resume 'swaymsg output \* power on'
