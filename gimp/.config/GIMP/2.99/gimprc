@@ -8,7 +8,7 @@
 
 (tile-cache-size 12G)
 (prev-language "American English")
-(config-version "2.99.16")
+(config-version "2.99.18")
 (interpolation-type lohalo)
 (default-image
     (width 2480)
@@ -37,13 +37,14 @@
     (simulation-use-black-point-compensation no)
     (simulation-optimize yes)
     (simulation-gamut-check no)
-    (out-of-gamut-color (color-rgb 1 0 1))
+    (out-of-gamut-color
+        (color "R'G'B'A double" 32 "\0\0\0\0\0\0\360\77\0\0\0\0\0\0\0\0\0\0\0\0\0\0\360\77\0\0\0\0\0\0\360\77" 0))
     (show-rgb-u8 no)
     (show-hsv no))
 (import-raw-plug-in "${gimp_plug_in_dir}/plug-ins/file-raw-placeholder/file-raw-placeholder")
 (debug-policy critical)
-(monitor-xresolution 139)
-(monitor-yresolution 141)
+(monitor-xresolution 196)
+(monitor-yresolution 202)
 (navigation-preview-size large)
 (default-view
     (show-menubar yes)
@@ -60,13 +61,17 @@
     (snap-to-grid no)
     (snap-to-canvas no)
     (snap-to-path no)
+    (snap-to-bbox no)
+    (snap-to-equidistance no)
     (padding-mode default)
-    (padding-color (color-rgb 0 0 0))
+    (padding-color
+        (color "R'G'B'A double" 32 "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\360\77" 0))
     (padding-in-show-all no))
 (save-session-info no)
 (theme "Darker")
 (icon-theme "Color")
 (user-manual-online yes)
+(show-welcome-dialog no)
 (image-convert-indexed-dither-type fs-lowbleed)
 (layer-add-mask-type alpha-transfer)
 (fill-options

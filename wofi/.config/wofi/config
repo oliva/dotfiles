@@ -1,3 +1,18 @@
+# mode
 show=drun
-allow_images
+allow_images=true
+parse_search=true
+single_click=true
+
+# display
+prompt=wofi
+dynamic_lines=true
+layer=overlay
+gtk_dark=true
+display_generic=true
+
+# matching
+exec-search=true
 insensitive=true
+matching=fuzzy
+
