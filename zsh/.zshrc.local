@@ -155,8 +155,8 @@ big() { #list files and diectories by size
 update() {
 	force_packages=(firefox-nightly-bin)
 	sudo pacman -Sy
-	ionice -c 3 yay -Su --noconfirm ||
-		ionice -c 3 sudo pacman -Su --noconfirm
+	ionice -c 3 yay -Su --noconfirm $@ ||
+		ionice -c 3 sudo pacman -Su --noconfirm $@
 	ionice -c 3 yay -S $force_packages
 	sudo pacman -Fy
 	sudo paccache -rk2
