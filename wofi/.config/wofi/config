@@ -14,5 +14,5 @@ display_generic=true
 # matching
 exec-search=true
 insensitive=true
-matching=fuzzy
+matching=multi-contains
 
