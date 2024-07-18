@@ -1,0 +1,17 @@
+{
+	"global": {
+		"watch": true,
+		"progress": true,
+		"animation-progress": true,
+		"up": "+Z",
+		"grid": true,
+		"trackball": true,
+		"animation-autoplay": true,
+		"translucency-support": true,
+		"ambient-occlusion": true,
+		"anti-aliasing": true,
+		"tone-mapping": true,
+		"filename": false,
+		"blur-background": true
+	}
+}
