@@ -39,5 +39,6 @@
 		"inline_completion_provider": "none"
 	},
 	"ui_font_size": 16,
-	"languages": {}
+	"languages": {},
+	"assistant": {"enabled": false, "version": "2"}
 }
