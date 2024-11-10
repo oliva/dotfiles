@@ -39,6 +39,10 @@
 		"inline_completion_provider": "none"
 	},
 	"ui_font_size": 16,
-	"languages": {},
+	"languages": {
+		"YAML": {
+			"hard_tabs": false
+		}
+	},
 	"assistant": {"enabled": false, "version": "2"}
 }

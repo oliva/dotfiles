@@ -7,7 +7,7 @@ target="$HOME"
 
 log=0 # -1: quiet 0: normal 1: no-run 2: debug
 
-modules=""
+programs=""
 
 # parse arguments
 while [ -n "${1:-}" ]; do
@@ -25,24 +25,24 @@ while [ -n "${1:-}" ]; do
 			log=2
 			;;
 		*)
-			modules="$modules${modules:+ }$1"
+			programs="$programs${programs:+ }$1"
 			;;
 	esac
 	shift
 done
 
-# use all modules by default
-[ -z "$modules" ] &&
-	modules="$(find "$dir"/* -mindepth 0 -maxdepth 0 -type d |sed 's|.*/||')"
+# use all programs by default
+[ -z "$programs" ] &&
+	programs="$(find "$dir"/* -mindepth 0 -maxdepth 0 -type d |sed 's|.*/||')"
 
 [ $log -ge 2 ] &&
 	echo verb $log &&
 	set -x
 [ $log -ge 1 ] &&
-	echo modules $modules
+	echo programs $programs
 
 # iterate over directories
-for cmd in $modules; do
+for cmd in $programs; do
 	# skip if command is not available
 	type $cmd > /dev/null 2> /dev/null || {
 		[ $log -ge 1 ] &&

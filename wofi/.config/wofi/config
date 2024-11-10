@@ -16,3 +16,6 @@ exec-search=true
 insensitive=true
 matching=multi-contains
 
+# keybinds
+key_expand=Tab
+
